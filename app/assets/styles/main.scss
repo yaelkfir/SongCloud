@@ -1,0 +1,340 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+}
+
+//over ride noraml css
+
+h3, h5, h2, h1 {
+  margin: 0;
+}
+
+section, ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+li, ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+a:link,
+a:visited{
+  outline: none;
+  background:none;
+  color: initial;
+  transition: none;
+  will-change: initial;
+}
+
+a:hover,
+a:focus{
+  outline: none;
+}
+
+a:active{
+  outline: none;
+}
+
+a{
+  text-decoration: none;
+}
+html{
+  width: 100%;
+  height: 100%;
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+#root{
+  width: 100%;
+  height: 100%;
+}
+
+.app-wraper{
+  width: 100%;
+  height: 100%;
+}
+
+input:focus{
+  outline: none;
+}
+
+
+
+//explore component
+//general
+.explore {
+  color: black;
+}
+
+//category list
+.category-list {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #d0d8dc;
+  display: flex;
+}
+
+.category-list > li {
+  width: 150px;
+  font-size: 0.8rem;
+  color: #a8aeb2;
+  line-height: 50px;
+  text-align: center;
+  border-right: 1px solid #d0d8dc;
+  display: flex;
+}
+
+.category-list a {
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: #a1a8ab;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+}
+
+.selected-category {
+  border-bottom: 5px solid blue;
+}
+
+//song list
+
+
+.track-container{
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+
+
+}
+//song elem
+.song {
+  width: 20%;
+  height: 140px;
+  padding: 0 10px;
+  font-size: 0.7rem;
+  margin-bottom:20px ;
+
+}
+
+.song-img-container {
+  height: 85px;
+  width:90%;
+  overflow: hidden;
+  margin: 12px auto;
+}
+.track{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  height: 100%;
+}
+
+.track p{
+  width: 90%;
+  margin: 0 auto;
+}
+.song-img {
+  width: 100%;
+}
+
+.user-img {
+  width: 30px;
+  height: 30px;
+  background-color: aquamarine;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.song-details {
+  display: flex;
+  align-content: center;
+  height: 30px;
+}
+
+
+
+//sign up page
+.sign-up{
+  //background-color: #2196f3;
+  //position: absolute;
+  //top: 0;
+  //bottom: 0;
+  //right: 0;
+  //left: 0;
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.sign-up-card{
+  background-color: white;
+  width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}
+
+.sign-up-logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.sign-up .fa{
+  font-size: 8rem;
+  color: #2196f3;
+}
+
+.sign-up h1{
+  font-size: 2.5rem;
+  color: #2196f3;
+  font-weight: 500;
+
+}
+
+.sign-up form{
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  align-items: flex-start;;
+}
+
+.sign-up h2{
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.sign-up label{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-up label span{
+  color: #2196f3;
+  font-size: 0.75rem;
+}
+
+//inputs
+.input-container{
+  width: 100%;
+}
+
+.input-container>label{
+  display: none;
+}
+
+input[type=email],
+input[type=text],
+input[type=password]{
+  margin-bottom: 40px;
+  width: 100%;
+  display: block;
+  border: none;
+  padding: 10px 0;
+  border-bottom: solid 1px #2196f3;
+  will-change: background-position;
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+  background-position: -200px 0;
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  color: #2b3033;
+}
+
+input[type=email]:focus,
+input[type=email]:valid,
+input[type=text]:focus,
+input[type=text]:valid,
+input[type=password]:focus,
+input[type=password]:valid{
+  margin-bottom: 40px;
+  width: 100%;
+  display: block;
+  border: none;
+  padding: 10px 0;
+  will-change: background-position;
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+  background-position: 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #2b3033;
+  font-size: 1rem;
+
+}
+
+input[type=email]::-webkit-input-placeholder,
+input[type=text]::-webkit-input-placeholder,
+input[type=password]::-webkit-input-placeholder,
+input[type=email]:focus::-webkit-input-placeholder,
+input[type=text]:focus::-webkit-input-placeholder,
+input[type=password]:focus::-webkit-input-placeholder{
+  color: #2196f3;
+}
+
+.input-container input[type=email]:valid ~ label,
+.input-container input[type=text]:valid ~ label,
+.input-container > input[type=password]:valid + label{
+  display: block;
+}
+
+.sign-up button{
+  background-color: #2196f3;
+  color: white;
+  border: 0;
+  align-self: center;
+  padding: 10px 16px;
+  margin: 20px 0;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
+.sign-up-footer{
+  font-size: 0.8rem;
+  display: flex;
+  margin-top: 20px;
+}
+
+.sign-up-footer p{
+  margin-right: 15px;
+}
+
+.sign-up-footer a{
+color: #2196f3
+}
+
+
+/*
+    height: 100%;
+    width: 240px;
+    display: flex;
+    background-color: #444f57;
+    align-items: center;
+    color: #1294f9;
+    justify-content: center;
+    align-self: flex-start;
+ */
