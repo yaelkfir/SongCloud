@@ -5,6 +5,9 @@
 import React from 'react';
 
 import TrackList from './TrackList'
+import CategoryList from './CategoryList'
+import Pagination from './Pagination'
+import Player from './Player'
 
 export default class Explore extends React.Component {
   constructor() {
@@ -31,28 +34,20 @@ export default class Explore extends React.Component {
   }
 
 
+
   render(){
 
     return (
+<div className="explore-container">
+  <div className="explore">
+    <CategoryList/>
+    <TrackList tracks={this.state.tracks}/>
+    <Pagination tracks={this.state.tracks}/>
+  </div>
+  <Player/>
+</div>
 
-      <div className="explore">
 
-        <ul className="category-list">
-          <li><a href="#" className="selected-category">category1</a></li>
-          <li><a href="#">category2</a></li>
-          <li><a href="">category3</a></li>
-        </ul>
-
-        <TrackList tracks={this.state.tracks}/>
-
-        <div>
-          <span>page number: 1</span>
-        </div>
-        <div>
-          <button>before</button>
-          <button>next</button>
-        </div>
-      </div>
     )
   }
 }

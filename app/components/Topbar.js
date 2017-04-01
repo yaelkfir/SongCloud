@@ -23,7 +23,7 @@ return(
     <header>
       <NavLink to="/" className="logo">
           <i className="fa fa-mixcloud" aria-hidden="true"/>
-          <span>tracks</span>
+          <span>SongCloud</span>
       </NavLink>
       <nav>
         <ul className="nav-list">
@@ -35,13 +35,18 @@ return(
           </li>
         </ul>
       </nav>
-      <div className="search-input">
-        <input className="search" type="text" placeholder="search"/>
+
+      <div className="right-side-header">
+        <div className="search-input">
+          <span className="fa fa-search" aria-hidden="true"/>
+          <input className="search" type="text" placeholder="search"/>
+        </div>
+
+        <div className="log-out">
+          <button type="button" className="log-out">logout</button>
+        </div>
       </div>
 
-      <div className="log-out">
-        <button type="button" className="log-out">log out</button>
-      </div>
     </header>
 )
 }

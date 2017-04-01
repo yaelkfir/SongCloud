@@ -8,13 +8,14 @@ export default function Player() {
 
 return(
   <footer>
-    <h1>Player is a loser component</h1>
-    <div>
-      <img src="#" alt="song thumbnail"/>
+    <div className="player-track-details">
+      <img src="http://placehold.it/50x50" alt="song thumbnail"/>
       <p>Song name</p>
     </div>
-<div>
-  <audio controls><source src="#"/></audio>
+<div className="player-controls">
+  <audio controls="controls">
+    <source src="http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg" type="audio/ogg"/>
+  </audio>
 </div>
   </footer>
 )

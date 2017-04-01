@@ -14,25 +14,76 @@ export default function TrackList(props) {
    */
   // console.info('work!',props.tracks[1]);
 
+  //make 16 empty divs with no hight
+  const tracklist = props.tracks;
+
+  function trackTitleSlicer(title) {
+    if (title.length > 38) {
+      return title.slice(0, 37) + '...'
+    }
+    else {
+      return title;
+    }
+  }
+
+  function trackMaker(track, i) {
+    console.info(track);
+    return <li key={i} id={track.id} className="track-container">
+
+      <div className="track">
+        <div className="img-container">
+          <img className="song-img" src={track.artwork_url} alt=""/>
+        </div>
+        <p title={track.title}>
+          {trackTitleSlicer(track.title)}
+        </p>
+        <div className="track-footer">
+          <div className="track-time">
+            <span className="fa fa-clock-o" aria-hidden="true"/>
+            <p>3:57</p>
+          </div>
+
+          <span className="fa fa-heart-o" aria-hidden="true"/>
+        </div>
+      </div>
+    </li>;
+  }
+
+  function gridHoldPlacer(length) {
+    if (length < 15) {
+      const num = 15 - length;
+
+
+      let arr = [];
+
+      for (let i = 0; i < num; i++) {
+        arr.push(1)
+      }
+
+      return arr;
+    }
+  }
 
   return (
 
+    <div className="list-container">
+      <h3>
+        Genre: Hip hop rap
+      </h3>
+      <ul className="track-list">
+        {
+          tracklist.map((track, i) => trackMaker(track, i))
+        }
+        {gridHoldPlacer(tracklist.length).map((num, i) => <li className="empty-track" key={'num' + i}/>)}
+        {/*<li className="track-container-test"/>*/}
+        {/*<li className="track-container-test"/>*/}
+        {/*<li className="track-container-test"/>*/}
+        {/*<li className="track-container-test"/>*/}
+        {/*<li className="track-container-test"/>*/}
+        {/*<li className="track-container-test"/>*/}
 
-    <ul className="track-container song-list">
-      {props.tracks.map((track, i) => {
+      </ul>
+    </div>
 
-        return <li key={[i]} id={track.id} className="song">
-          <div className="track">
-            <div className="song-img-container">
-              <img className="song-img" src={track.artwork_url} alt=""/>
-            </div>
-            <p>
-              {track.title.slice(0, 30) + '...'}
-            </p>
-          </div>
-        </li>
-      })
-      }
-    </ul>
   )
 }

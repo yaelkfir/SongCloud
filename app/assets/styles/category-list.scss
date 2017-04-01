@@ -1,0 +1,45 @@
+//category list
+.category-list {
+  width: 100%;
+  height: 40px;
+  background-color: #DDE4E6 ;
+  display: flex;
+  line-height: 40px;
+}
+
+.category,
+.category-title {
+  width: 130px;
+  font-size: 0.9rem;
+  color: #000000;
+  text-align: center;
+  display: flex;
+}
+
+.category-title{
+  width: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.category:hover {
+  background-color: #c3c9cb;
+}
+
+.category-list a,
+.category-title span{
+  width: 100%;
+  height: 100%;
+  text-transform: capitalize;
+  color: #000000;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+  text-decoration: none;
+}
+
+.category-list li:first-of-type span{
+  font-weight: 600;
+}
+
+a.selected-category {
+text-decoration: underline;
+}

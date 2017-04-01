@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 //over ride noraml css
@@ -24,23 +24,23 @@ li, ul {
 a {
   text-decoration: none;
 }
-a:link,
-a:visited{
-  outline: none;
-  background:none;
-  color: initial;
-  transition: none;
-  will-change: initial;
-}
-
-a:hover,
-a:focus{
-  outline: none;
-}
-
-a:active{
-  outline: none;
-}
+//a:link,
+//a:visited{
+//  outline: none;
+//  background:none;
+//  color: initial;
+//  transition: none;
+//  will-change: initial;
+//}
+//
+//a:hover,
+//a:focus{
+//  outline: none;
+//}
+//
+//a:active{
+//  outline: none;
+//}
 
 a{
   text-decoration: none;
@@ -71,104 +71,30 @@ input:focus{
 }
 
 
-
+main{
+  height: calc(100% - 64px);
+}
 //explore component
 //general
 .explore {
   color: black;
-}
 
-//category list
-.category-list {
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #d0d8dc;
   display: flex;
-}
+  min-height: calc(100% - 64px);
 
-.category-list > li {
-  width: 150px;
-  font-size: 0.8rem;
-  color: #a8aeb2;
-  line-height: 50px;
-  text-align: center;
-  border-right: 1px solid #d0d8dc;
-  display: flex;
-}
-
-.category-list a {
-  width: 100%;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  color: #a1a8ab;
-  font-weight: 300;
-  letter-spacing: 0.05rem;
-}
-
-.selected-category {
-  border-bottom: 5px solid blue;
-}
-
-//song list
-
-
-.track-container{
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
-
-
-}
-//song elem
-.song {
-  width: 20%;
-  height: 140px;
-  padding: 0 10px;
-  font-size: 0.7rem;
-  margin-bottom:20px ;
-
-}
-
-.song-img-container {
-  height: 85px;
-  width:90%;
-  overflow: hidden;
-  margin: 12px auto;
-}
-.track{
-  display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  height: 100%;
+
 }
 
-.track p{
-  width: 90%;
-  margin: 0 auto;
-}
-.song-img {
-  width: 100%;
-}
+.explore-container{
+  height: calc(100% - 60px);
+  overflow: auto;
 
-.user-img {
-  width: 30px;
-  height: 30px;
-  background-color: aquamarine;
-  border-radius: 50%;
-  overflow: hidden;
 }
-
-.song-details {
-  display: flex;
-  align-content: center;
-  height: 30px;
-}
-
 
 
 //sign up page
+
 .sign-up{
   //background-color: #2196f3;
   //position: absolute;
@@ -247,60 +173,60 @@ input:focus{
   display: none;
 }
 
-input[type=email],
-input[type=text],
-input[type=password]{
-  margin-bottom: 40px;
-  width: 100%;
-  display: block;
-  border: none;
-  padding: 10px 0;
-  border-bottom: solid 1px #2196f3;
-  will-change: background-position;
-  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
-  background-position: -200px 0;
-  background-size: 200px 100%;
-  background-repeat: no-repeat;
-  color: #2b3033;
-}
-
-input[type=email]:focus,
-input[type=email]:valid,
-input[type=text]:focus,
-input[type=text]:valid,
-input[type=password]:focus,
-input[type=password]:valid{
-  margin-bottom: 40px;
-  width: 100%;
-  display: block;
-  border: none;
-  padding: 10px 0;
-  will-change: background-position;
-  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
-  background-position: 0;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  color: #2b3033;
-  font-size: 1rem;
-
-}
-
-input[type=email]::-webkit-input-placeholder,
-input[type=text]::-webkit-input-placeholder,
-input[type=password]::-webkit-input-placeholder,
-input[type=email]:focus::-webkit-input-placeholder,
-input[type=text]:focus::-webkit-input-placeholder,
-input[type=password]:focus::-webkit-input-placeholder{
-  color: #2196f3;
-}
-
-.input-container input[type=email]:valid ~ label,
-.input-container input[type=text]:valid ~ label,
-.input-container > input[type=password]:valid + label{
-  display: block;
-}
+//input[type=email],
+//input[type=text],
+//input[type=password]{
+//  margin-bottom: 40px;
+//  width: 100%;
+//  display: block;
+//  border: none;
+//  padding: 10px 0;
+//  border-bottom: solid 1px #2196f3;
+//  will-change: background-position;
+//  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+//  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+//  background-position: -200px 0;
+//  background-size: 200px 100%;
+//  background-repeat: no-repeat;
+//  color: #2b3033;
+//}
+//
+//input[type=email]:focus,
+//input[type=email]:valid,
+//input[type=text]:focus,
+//input[type=text]:valid,
+//input[type=password]:focus,
+//input[type=password]:valid{
+//  margin-bottom: 40px;
+//  width: 100%;
+//  display: block;
+//  border: none;
+//  padding: 10px 0;
+//  will-change: background-position;
+//  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+//  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+//  background-position: 0;
+//  background-size: 100% 100%;
+//  background-repeat: no-repeat;
+//  color: #2b3033;
+//  font-size: 1rem;
+//
+//}
+//
+//input[type=email]::-webkit-input-placeholder,
+//input[type=text]::-webkit-input-placeholder,
+//input[type=password]::-webkit-input-placeholder,
+//input[type=email]:focus::-webkit-input-placeholder,
+//input[type=text]:focus::-webkit-input-placeholder,
+//input[type=password]:focus::-webkit-input-placeholder{
+//  color: #2196f3;
+//}
+//
+//.input-container input[type=email]:valid ~ label,
+//.input-container input[type=text]:valid ~ label,
+//.input-container > input[type=password]:valid + label{
+//  display: block;
+//}
 
 .sign-up button{
   background-color: #2196f3;
@@ -326,15 +252,3 @@ input[type=password]:focus::-webkit-input-placeholder{
 .sign-up-footer a{
 color: #2196f3
 }
-
-
-/*
-    height: 100%;
-    width: 240px;
-    display: flex;
-    background-color: #444f57;
-    align-items: center;
-    color: #1294f9;
-    justify-content: center;
-    align-self: flex-start;
- */
