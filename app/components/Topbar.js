@@ -13,14 +13,9 @@ import {
 
 export default function Topbar() {
 
-
-  /*
-   <li><NavLink to="/" exact activeClassName="selected">Home</NavLink></li>
-   <li><NavLink to="/about" activeClassName="selected">About us</NavLink></li>
-   <li><NavLink to="/asldfjsdf" activeClassName="selected">To infinity, and beyond! 🚀</NavLink></li>
-   */
 return(
     <header>
+
       <NavLink to="/" className="logo">
           <i className="fa fa-mixcloud" aria-hidden="true"/>
           <span>SongCloud</span>
@@ -28,7 +23,7 @@ return(
       <nav>
         <ul className="nav-list">
           <li>
-            <NavLink to="/explore" exact activeClassName="nav-selected">Explore</NavLink>
+            <NavLink to="/explore" activeClassName="nav-selected">Explore</NavLink>
           </li>
           <li>
             <NavLink to="/playlists" activeClassName="nav-selected">Playlists</NavLink>

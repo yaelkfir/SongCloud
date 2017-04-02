@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 0 40px 40px 40px;
+  padding: 0 40px;
 
 
 }
@@ -87,11 +87,13 @@ padding: 10px;
   height: 84px;
   overflow: hidden;
   margin-bottom: 10px;
+  position: relative;
+  background: no-repeat;
+  background-size: cover;
+  background-position: 0 50% ;
 }
 
-.track > .img-container img{
-width:100%
-}
+
 
 .track-footer{
   display: flex;
@@ -106,14 +108,26 @@ width:100%
   align-items: flex-end;
 }
 
+.track-time p{
+  font-size: 0.6rem;
+}
+
 .track-footer .fa-heart-o{
+ font-size: 0.85rem;
   color:#D8D8D8;
+  cursor: pointer;
+}
+
+.track-footer .fa-heart{
+  color: #1E88E5;
+  cursor: pointer;
+  font-size: 0.85rem;
+
 }
 .track-footer .fa-clock-o{
   padding-right: 4px;
   font-size: 0.6rem;
   align-self: flex-start;
-  padding-top: 1px;
 }
 
 

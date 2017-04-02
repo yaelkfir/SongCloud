@@ -5,6 +5,9 @@
   background-color: #DDE4E6 ;
   display: flex;
   line-height: 40px;
+  position: absolute;
+  top: 0;
+  z-index: 10;
 }
 
 .category,

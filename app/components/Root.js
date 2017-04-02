@@ -35,7 +35,7 @@ this is useless but good reference func in reatc
 
 
 import Player from './Player'
-import Playlists from './Playlists'
+import PlayLists from './PlayLists'
 import Explore from './Explore'
 import Topbar from './Topbar'
 import Signup from './Signup'
@@ -60,16 +60,12 @@ export default function Root() {
 
       <main>
         <Switch>
-          <Route exact path="/" component={()=>(
-            <Redirect to="/explore"/>
-          ) }/>
-          <Route path="/explore" component={ Explore } />
-          <Route path="/playlists" component={ Playlists } />
+          <Route exact path="/" component={()=>(<Redirect to="/explore/trance"/>)}/>
+          <Route exact path="/explore" component={()=>(<Redirect to="/explore/trance"/>)}/>
+          <Route path="/explore/:genre" component={ Explore } />
+          <Route path="/playlists" component={ PlayLists } />
         </Switch>
-       {/*<Playlists/>*/}
       </main>
-
-      {/*<Player/>*/}
     </div>
     </BrowserRouter>
   );

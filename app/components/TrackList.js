@@ -3,19 +3,11 @@
  */
 
 import React from 'react'
+import LikeTrack from './likeTrack'
 
 export default function TrackList(props) {
 
-
-  /*
-   <li><NavLink to="/" exact activeClassName="selected">Home</NavLink></li>
-   <li><NavLink to="/about" activeClassName="selected">About us</NavLink></li>
-   <li><NavLink to="/asldfjsdf" activeClassName="selected">To infinity, and beyond! 🚀</NavLink></li>
-   */
-  // console.info('work!',props.tracks[1]);
-
-  //make 16 empty divs with no hight
-  const tracklist = props.tracks;
+  const trackList = props.tracks;
 
   function trackTitleSlicer(title) {
     if (title.length > 38) {
@@ -26,27 +18,11 @@ export default function TrackList(props) {
     }
   }
 
-  function trackMaker(track, i) {
-    console.info(track);
-    return <li key={i} id={track.id} className="track-container">
+  function msToTime(duration) {
+    const seconds = parseInt((duration / 1000) % 60);
+    const minutes = parseInt((duration / (1000 * 60)) % 60);
 
-      <div className="track">
-        <div className="img-container">
-          <img className="song-img" src={track.artwork_url} alt=""/>
-        </div>
-        <p title={track.title}>
-          {trackTitleSlicer(track.title)}
-        </p>
-        <div className="track-footer">
-          <div className="track-time">
-            <span className="fa fa-clock-o" aria-hidden="true"/>
-            <p>3:57</p>
-          </div>
-
-          <span className="fa fa-heart-o" aria-hidden="true"/>
-        </div>
-      </div>
-    </li>;
+    return (((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds));
   }
 
   function gridHoldPlacer(length) {
@@ -72,15 +48,25 @@ export default function TrackList(props) {
       </h3>
       <ul className="track-list">
         {
-          tracklist.map((track, i) => trackMaker(track, i))
+          trackList.map((track, i) => <li key={i} id={track.id} className="track-container">
+
+            <div className="track">
+              <div className="img-container" style={{'backgroundImage':`url(${track.artwork_url.replace('large','t300x300')})`}}/>
+              <p title={track.title}>
+                {trackTitleSlicer(track.title)}
+              </p>
+              <div className="track-footer">
+                <div className="track-time">
+                  <span className="fa fa-clock-o" aria-hidden="true"/>
+                  <p>{msToTime(track.duration)}</p>
+                </div>
+                <LikeTrack/>
+              </div>
+            </div>
+          </li>)
         }
-        {gridHoldPlacer(tracklist.length).map((num, i) => <li className="empty-track" key={'num' + i}/>)}
-        {/*<li className="track-container-test"/>*/}
-        {/*<li className="track-container-test"/>*/}
-        {/*<li className="track-container-test"/>*/}
-        {/*<li className="track-container-test"/>*/}
-        {/*<li className="track-container-test"/>*/}
-        {/*<li className="track-container-test"/>*/}
+
+        {gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={'num' + i}/>)}
 
       </ul>
     </div>

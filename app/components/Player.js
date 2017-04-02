@@ -7,7 +7,7 @@ import React from 'react'
 export default function Player() {
 
 return(
-  <footer>
+  <div className="explore-footer">
     <div className="player-track-details">
       <img src="http://placehold.it/50x50" alt="song thumbnail"/>
       <p>Song name</p>
@@ -17,7 +17,7 @@ return(
     <source src="http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg" type="audio/ogg"/>
   </audio>
 </div>
-  </footer>
+  </div>
 )
 }
 

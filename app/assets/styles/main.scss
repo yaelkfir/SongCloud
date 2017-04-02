@@ -73,6 +73,7 @@ input:focus{
 
 main{
   height: calc(100% - 64px);
+  position: relative;
 }
 //explore component
 //general
@@ -87,11 +88,23 @@ main{
 }
 
 .explore-container{
-  height: calc(100% - 60px);
-  overflow: auto;
+  height: calc(100% - 59px);
 
 }
 
+.over-flow-explore{
+  position: absolute;
+  top: 40px;
+  bottom: 60px;
+  overflow: auto;
+}
+
+.spinner-wrapper{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 //sign up page
 
