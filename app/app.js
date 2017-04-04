@@ -6,11 +6,13 @@ import './assets/styles/track-list.scss';
 import './assets/styles/category-list.scss';
 import './assets/styles/pagination.scss';
 import './assets/styles/player.scss';
+import './assets/styles/play-list.scss';
+// import './assets/styles/sign-up.scss';
 
 
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import Root from './components/Root.js'
+import Routes from './components/Routes.js'
 
-ReactDOM.render(<Root/>, document.querySelector('#root'));
+ReactDOM.render(<Routes/>, document.querySelector('#root'));

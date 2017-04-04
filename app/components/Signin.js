@@ -7,9 +7,9 @@ import React from 'react'
 export default function Signin() {
 
 return(
-  <div className="sign-up">
+  <div className="sign-up-page">
     <div className="sign-up-card">
-      <div className="sign-up-logo">
+      <div className="sign-up-card-header">
         <div className="fa fa-mixcloud"></div>
         <h1>SongCloud</h1>
       </div>

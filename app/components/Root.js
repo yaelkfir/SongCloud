@@ -1,74 +1,58 @@
-/**
- * Created by yaelo on 3/28/17.
- */
-import Greeting from './Greeting'
-/*
 
-this is useless but good reference func in reatc
- <Greeting data={data}
- />
+import React from 'react'
 
- const data = {
- name:"Mr.Dog",
- age:"4",
- };
-
- */
-
-
-/*
- export default function App() {
- return <BrowserRouter>
- <div>
- <NavBarComponent />
- <Switch>
- <Route exact path="/" component={ PeopleListComponent } />
- <Route path="/about" component={ AboutUsComponent } />
- <Route component={ Oops } />
- </Switch>
- </div>
- </BrowserRouter>;
- }
-
- */
-
-
+import {
+  Route,
+  Switch,
+  Redirect
+}
+  from 'react-router-dom';
 
 import Player from './Player'
 import PlayLists from './PlayLists'
 import Explore from './Explore'
-import Topbar from './Topbar'
-import Signup from './Signup'
-import Signin from './Signin'
+import TopBar from './Topbar'
 
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+export default class Root extends React.Component {
+  constructor(){
+    super();
 
-export default function Root() {
+    this.state={
+      currentTrack: {},
+      playlist:[]
+    };
 
-  return (
-    <BrowserRouter>
-    <div className="app-wraper">
-      {/*<Signup/>*/}
-      {/*<Signin/>*/}
+    this.updateCurrentTrack = this.updateCurrentTrack.bind(this);
+  }
 
-      <Topbar/>
 
+  updateCurrentTrack(newTrack){
+
+    this.setState({
+      currentTrack: Object.assign({},newTrack)
+    })
+  }
+
+  render() {
+
+    console.info('current track', this.state.currentTrack);
+
+    return <div className="app-wraper">
+      <TopBar/>
       <main>
         <Switch>
-          <Route exact path="/" component={()=>(<Redirect to="/explore/trance"/>)}/>
-          <Route exact path="/explore" component={()=>(<Redirect to="/explore/trance"/>)}/>
-          <Route path="/explore/:genre" component={ Explore } />
-          <Route path="/playlists" component={ PlayLists } />
+          <Route exact path="/" component={() => (<Redirect to="/explore/trance"/>)}/>
+          <Route exact path="/explore" component={() => (<Redirect to="/explore/trance"/>)}/>
+          <Route path="/explore/:genre" render={(props)=>{
+            return <Explore updateCurrentTrack={ this.updateCurrentTrack }
+                            {...props}/> }}/>
+          <Route path="/playlists" component={ PlayLists }/>
         </Switch>
       </main>
+      <Player track={ this.state.currentTrack }/>
     </div>
-    </BrowserRouter>
-  );
+
+  }
 }
 
 

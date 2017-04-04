@@ -5,13 +5,16 @@
 import React from 'react'
 import LikeTrack from './likeTrack'
 
+
 export default function TrackList(props) {
 
   const trackList = props.tracks;
+  const genre = props.genre;
 
-  function trackTitleSlicer(title) {
-    if (title.length > 38) {
-      return title.slice(0, 37) + '...'
+
+  function trackTitleSlicer(title, num) {
+    if (title.length > num + 1) {
+      return title.slice(0, num) + '...'
     }
     else {
       return title;
@@ -25,9 +28,37 @@ export default function TrackList(props) {
     return (((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds));
   }
 
+  function trackCradMaker(track, i){
+    let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : '';
+
+    return(
+      <li key={track + i} id={track.id} className="track-container">
+
+        <div className="track">
+          <div className="img-container"
+               style={{'backgroundImage':trackImg}}
+               onClick={()=> { console.info(track);
+               return props.updateCurrentTrack(track)}}
+          />
+          <p title={track.title}>
+            {trackTitleSlicer(track.title, 37)}
+          </p>
+          <div className="track-footer">
+            <div className="track-time">
+              <span className="fa fa-clock-o" aria-hidden="true"/>
+              <p>{msToTime(track.duration)}</p>
+            </div>
+            <LikeTrack/>
+          </div>
+        </div>
+      </li>
+      )
+
+  }
+
   function gridHoldPlacer(length) {
-    if (length < 15) {
-      const num = 15 - length;
+    if (length < 16) {
+      const num = 16 - length;
 
 
       let arr = [];
@@ -40,30 +71,18 @@ export default function TrackList(props) {
     }
   }
 
+
+
   return (
+
 
     <div className="list-container">
       <h3>
-        Genre: Hip hop rap
+        Genre: {genre}
       </h3>
       <ul className="track-list">
         {
-          trackList.map((track, i) => <li key={i} id={track.id} className="track-container">
-
-            <div className="track">
-              <div className="img-container" style={{'backgroundImage':`url(${track.artwork_url.replace('large','t300x300')})`}}/>
-              <p title={track.title}>
-                {trackTitleSlicer(track.title)}
-              </p>
-              <div className="track-footer">
-                <div className="track-time">
-                  <span className="fa fa-clock-o" aria-hidden="true"/>
-                  <p>{msToTime(track.duration)}</p>
-                </div>
-                <LikeTrack/>
-              </div>
-            </div>
-          </li>)
+          trackList.map((track, i) => trackCradMaker(track, i))
         }
 
         {gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={'num' + i}/>)}

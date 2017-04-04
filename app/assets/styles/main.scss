@@ -108,7 +108,7 @@ main{
 
 //sign up page
 
-.sign-up{
+.sign-up-page{
   //background-color: #2196f3;
   //position: absolute;
   //top: 0;
@@ -133,46 +133,40 @@ main{
 
 }
 
-.sign-up-logo{
+.sign-up-card-header{
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 70px;
 }
 
-.sign-up .fa{
+.sign-up-page .fa{
   font-size: 8rem;
   color: #2196f3;
 }
 
-.sign-up h1{
+.sign-up-page h1{
   font-size: 2.5rem;
   color: #2196f3;
   font-weight: 500;
 
 }
 
-.sign-up form{
+.sign-up-page form{
   display: flex;
   flex-direction: column;
   width: 75%;
   align-items: flex-start;;
 }
 
-.sign-up h2{
+.sign-up-page h2{
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 20px;
   text-transform: capitalize;
 }
 
-.sign-up label{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.sign-up label span{
+.sign-up-page label span{
   color: #2196f3;
   font-size: 0.75rem;
 }
@@ -180,69 +174,76 @@ main{
 //inputs
 .input-container{
   width: 100%;
+  height: 80px;
 }
 
-.input-container>label{
-  display: none;
+//normal
+.sign-up-form .input-container > input{
+   margin-bottom: 40px;
+   width: 100%;
+   display: block;
+
+   padding: 10px 0;
+   border:none;
+
+   border-bottom: solid 1px #2196f3;
+   will-change: background-position;
+   transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+   background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+   background-position: -200px 0;
+   background-size: 200px 100%;
+   background-repeat: no-repeat;
+   color: #2b3033;
+   font-size: 1rem;
+
+ }
+.sign-up-form .input-container > input::placeholder{
+  width: 100%;
+  display: flex;
+  color: #2196f3;
+  font-size: 0.8rem;
+  transform: translateY(0px);
+  transition: all .2s ease-in
 }
 
-//input[type=email],
-//input[type=text],
-//input[type=password]{
-//  margin-bottom: 40px;
-//  width: 100%;
-//  display: block;
-//  border: none;
-//  padding: 10px 0;
-//  border-bottom: solid 1px #2196f3;
-//  will-change: background-position;
-//  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-//  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
-//  background-position: -200px 0;
-//  background-size: 200px 100%;
-//  background-repeat: no-repeat;
-//  color: #2b3033;
-//}
-//
-//input[type=email]:focus,
-//input[type=email]:valid,
-//input[type=text]:focus,
-//input[type=text]:valid,
-//input[type=password]:focus,
-//input[type=password]:valid{
-//  margin-bottom: 40px;
-//  width: 100%;
-//  display: block;
-//  border: none;
-//  padding: 10px 0;
-//  will-change: background-position;
-//  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
-//  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
-//  background-position: 0;
-//  background-size: 100% 100%;
-//  background-repeat: no-repeat;
-//  color: #2b3033;
-//  font-size: 1rem;
-//
-//}
-//
-//input[type=email]::-webkit-input-placeholder,
-//input[type=text]::-webkit-input-placeholder,
-//input[type=password]::-webkit-input-placeholder,
-//input[type=email]:focus::-webkit-input-placeholder,
-//input[type=text]:focus::-webkit-input-placeholder,
-//input[type=password]:focus::-webkit-input-placeholder{
-//  color: #2196f3;
-//}
-//
-//.input-container input[type=email]:valid ~ label,
-//.input-container input[type=text]:valid ~ label,
-//.input-container > input[type=password]:valid + label{
-//  display: block;
-//}
 
-.sign-up button{
+//active
+.sign-up-form .input-container > input:focus{
+  margin-bottom: 40px;
+  width: 100%;
+  display: block;
+  border:none;
+  border-bottom: solid 1px #2196f3;
+  padding: 10px 0;
+
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, #2196f3 96%);
+  background-position: 0;
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  color: #2b3033;
+  font-size: 1rem;
+
+}
+.sign-up-form .input-container > input:focus::placeholder{
+  transform: translateY(-25px);
+}
+
+
+//footer
+.sign-up-page button{
+
+  background-image: radial-gradient(circle,#2196f3 1%,#6ab8f7 15%,transparent 30%);
   background-color: #2196f3;
+  background-size: 0;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  border-radius: 1.98px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+
+  transition: all 1s ease-in;
+
   color: white;
   border: 0;
   align-self: center;
@@ -250,6 +251,19 @@ main{
   margin: 20px 0;
   font-size: 0.8rem;
   font-family: inherit;
+
+}
+
+.sign-up-page button:hover{
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+  background-image: radial-gradient(circle,#2196f3 1%,#6ab8f7 15%,transparent 30%);
+  background-color: #39a1f4;
+}
+
+.sign-up-page button:focus{
+  box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+  background-image: radial-gradient(circle,#2196f3 1%,#6ab8f7 15%,transparent 30%);
+  background-color: #39a1f4;
 }
 
 .sign-up-footer{

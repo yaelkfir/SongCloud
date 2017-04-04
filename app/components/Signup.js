@@ -6,31 +6,48 @@ import React from 'react'
 
 export default function signup() {
 
+  function toggelLabel(){
+
+
+
+
+  }
+
   return (
-    <div className="sign-up">
+    <div className="sign-up-page">
       <div className="sign-up-card">
-        <div className="sign-up-logo">
-          <div className="fa fa-mixcloud"></div>
+
+        <div className="sign-up-card-header">
+
+          <div className="fa fa-mixcloud"/>
           <h1>SongCloud</h1>
+
         </div>
 
 
-        <form>
+
+        <form className="sign-up-form">
+
           <h2>create account</h2>
+
           <div className="input-container">
-            <label className="input-label">User name</label>
-            <input type="text" required placeholder="Username"/>
+            <input type='email' placeholder='email' required/>
           </div>
-         <div className="input-container">
-           <label className="input-label">User name</label>
-           <input type="password" required placeholder="Password"/>
-         </div>
-          <button className="btn--blue">continue</button>
-          <div className="sign-up-footer">
-            <p>already have an account?</p>
-            <a href="#">sign in</a>
+
+          <div className='input-container'>
+            <input type='password' className="sign-input"  placeholder="password" required/>
           </div>
+
+          <button className="btn-blue">continue</button>
+
         </form>
+
+
+
+        <div className="sign-up-footer">
+          <p>already have an account?</p>
+          <a href="#">sign in</a>
+        </div>
 
       </div>
     </div>

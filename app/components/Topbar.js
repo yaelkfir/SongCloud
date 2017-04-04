@@ -16,7 +16,7 @@ export default function Topbar() {
 return(
     <header>
 
-      <NavLink to="/" className="logo">
+      <NavLink to="/explore" className="logo">
           <i className="fa fa-mixcloud" aria-hidden="true"/>
           <span>SongCloud</span>
       </NavLink>
@@ -36,10 +36,9 @@ return(
           <span className="fa fa-search" aria-hidden="true"/>
           <input className="search" type="text" placeholder="search"/>
         </div>
-
-        <div className="log-out">
-          <button type="button" className="log-out">logout</button>
-        </div>
+            <NavLink to="/Signup" className="log-out">
+            <button type="button" className="log-out">logout</button>
+            </NavLink>
       </div>
 
     </header>

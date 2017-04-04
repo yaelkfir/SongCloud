@@ -1,28 +1,28 @@
 //song list
-.list-container{
+.list-container {
 
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 0 40px;
 
-
 }
 
-.list-container h3{
+.list-container h3 {
   font-size: 1.4rem;
   margin: 30px 0;
+  text-transform: capitalize;
 }
 
-.track-list{
+.track-list {
 
   display: flex;
   flex-wrap: wrap;
-justify-content: space-between;
+  justify-content: space-between;
 
 }
 
-.track-container{
+.track-container {
 
   width: 240px;
   display: flex;
@@ -32,26 +32,26 @@ justify-content: space-between;
 
 }
 
-.track-container-test{
+.track-container-test {
   width: 240px;
   height: 140px;
   background-color: #2196f3;
   margin-bottom: 30px;
 }
 
-.track p{
-  width:100%;
+.track p {
+  width: 100%;
   font-size: 0.7rem;
 }
 
-
-
 .empty-track {
-  width:240px;
+  width: 240px;
   height: 0;
-};
+}
 
-.track-list-3colms{
+;
+
+.track-list-3colms {
 
 }
 
@@ -70,19 +70,19 @@ justify-content: space-between;
 //  }
 //}
 
-
-.track{
+.track {
   border: 1px solid #D8D8D8;
   width: 240px;
   height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
-padding: 10px;
+  padding: 10px;
 }
 
 
-.track > .img-container{
+
+.track > .img-container {
   width: 100%;
   height: 84px;
   overflow: hidden;
@@ -90,44 +90,162 @@ padding: 10px;
   position: relative;
   background: no-repeat;
   background-size: cover;
-  background-position: 0 50% ;
+  background-position: 0 50%;
+
+
+}
+
+//normal
+.track > .img-container:after {
+  content: '';
+  width: 100%;
+  height: 84px;
+  background-color: rgba(0,0,0,0);
+  transition: all .3s ease-in;
+
+  position: absolute;
+}
+
+//hover
+.track > .img-container:hover:after {
+
+  content: '';
+  width: 100%;
+  height: 84px;
+  background-color: rgba(0,0,0,0.5);
+
+
+  position: absolute;
 }
 
 
-
-.track-footer{
+.track-footer {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-.track-time{
+.track-time {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
 }
 
-.track-time p{
+.track-time p {
   font-size: 0.6rem;
 }
 
-.track-footer .fa-heart-o{
- font-size: 0.85rem;
-  color:#D8D8D8;
+.track-footer .fa-heart-o {
+  font-size: 0.85rem;
+  color: #D8D8D8;
   cursor: pointer;
+  transition: all .2s ease-in
 }
 
-.track-footer .fa-heart{
+.track-footer .fa-heart-o:hover {
+  font-weight: bold;
+  color: #1E88E5;;
+}
+
+.track-footer .fa-heart {
   color: #1E88E5;
   cursor: pointer;
   font-size: 0.85rem;
+  transition: all .2s ease-in
 
 }
-.track-footer .fa-clock-o{
+
+
+.track-footer .fa-clock-o {
   padding-right: 4px;
   font-size: 0.6rem;
   align-self: flex-start;
 }
 
+
+
+.track-drop-list {
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  width: 130px;
+  z-index: 10;
+  background-color: white;
+  border: 1px solid #D8D8D8;
+  padding: 10px;
+  box-shadow: 0px 2px 3px 0px #d8d8d8;
+
+}
+
+.drop-down-container {
+  height: 14px;
+  position: relative;
+
+}
+
+.drop-down-container h4 {
+  font-size: 0.7rem;
+  text-transform: capitalize;
+  text-align: left;
+
+}
+
+.track-drop-list button {
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 9px;
+  color: #1E88E5;
+}
+
+.track-drop-list button:focus {
+  outline: none;
+}
+
+.track-drop-list ul {
+  border-top: 1px solid #d8d8d8;
+}
+
+.track-drop-list li {
+  font-size: 0.7rem;
+  padding-top: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.track-drop-list label.checkbox {
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.indicator {
+  border-radius: 3px;
+  border: 1px solid #dde4e6;
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 0.9rem;
+  height: 0.9rem;
+  background-color: #ffff;
+  cursor: pointer;
+  transition: all .2s ease-in;
+}
+
+label:hover > .indicator,
+.indicator:hover {
+  border: 2px solid #2196f3;
+}
+
+input[type=checkbox] {
+  opacity: 0;
+}
+
+.track-drop-list label.checkbox > input[type="checkbox"]:checked ~ .indicator {
+  background: #2196f3 url('data:image/svg+xml;utf8,<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75"><defs><style>.cls-1{fill:#fff;}</style></defs><title>Artboard 1</title><g id="GyyoQ7.tif"><path class="cls-1" d="M71.23,18.81l-6.12-6.12a4.05,4.05,0,0,0-5.73,0h0L30.59,41.48l-13-13a4,4,0,0,0-5.73,0h0L5.77,34.64a4.05,4.05,0,0,0,0,5.73h0L21.6,56.19l6.12,6.12a4.05,4.05,0,0,0,5.73,0h0l6.12-6.12L71.23,24.54a4,4,0,0,0,0-5.73Z"/></g></svg>') no-repeat;
+  border: 2px solid #2196f3;
+}
 

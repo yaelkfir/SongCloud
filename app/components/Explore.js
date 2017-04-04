@@ -7,49 +7,88 @@ import React from 'react';
 import MDSpinner from "react-md-spinner";
 import TrackList from './TrackList'
 import CategoryList from './CategoryList'
-import Pagination from './Pagination'
-import Player from './Player'
+// import Pagination from './Pagination'
+// import Player from './Player'
 
 export default class Explore extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
 
     this.state = {
       tracks: [],
-      trackLoading: 'loading'
+      trackLoading: 'loading',
+      selectedTrack: {},
+      offset: 0,
+      limit: 15
+    };
 
-    }
+    console.info('explore props',this.props);
   }
 
-  GetXhr(){
+  //pagination
+  prevPage() {
+    this.setState({
+      offset: this.state.offset - this.state.limit
+    });
+  }
 
+  nextPage() {
+    this.setState({
+      offset: this.state.offset + this.state.limit
+    });
+  }
+
+  //get tracks from internet
+  GetXhr() {
+
+    let limit = this.state.limit;
+    let offset = this.state.offset;
     const genre = this.props.match.params.genre;
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET', `https://create-bootcamp-songcloud-server.now.sh/tracks?genre=${genre}`);
-
+    xhr.open('GET', `https://api.soundcloud.com/tracks?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z&app&limit=${limit}&offset=${offset}&tags=${genre}`);
     xhr.addEventListener('load', () => {
+
       this.setState({tracks: JSON.parse(xhr.responseText), trackLoading: 'loaded'});
     });
     xhr.addEventListener('error', () => {
+
       this.setState({trackLoading: 'error'});
     });
     xhr.send();
+
   }
+
+
+  //react framework functions
 
   componentDidMount() {
     this.GetXhr();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.genre === this.props.match.params.genre)
-      return;
-    this.GetXhr();
+  componentDidUpdate(prevProps, prevState) {
+
+    const prevGenre = prevProps.match.params.genre;
+    const targetGenre = this.props.match.params.genre;
+
+    if (prevGenre !== targetGenre && prevState.offset === this.state.offset) {
+
+      this.setState({offset: 0} ,() => {
+        this.GetXhr();
+      })
+    }
+
+    if(prevState.offset !== this.state.offset && prevGenre === targetGenre){
+
+      this.GetXhr();
+    }
   }
 
   render() {
+
     switch (this.state.trackLoading) {
       case 'loading':
         return (
@@ -70,12 +109,16 @@ export default class Explore extends React.Component {
             <CategoryList/>
             <div className="over-flow-explore">
               <div className="explore">
-                <TrackList tracks={this.state.tracks}/>
-                <Pagination tracks={this.state.tracks}/>
+                <TrackList tracks={this.state.tracks} genre={this.props.match.params.genre} updateCurrentTrack={ this.props.updateCurrentTrack }/>
+                <div className="pagination">
+                  <button onClick={()=>{ this.prevPage() }}
+                          disabled={this.state.offset === 0}>prev
+                  </button>
+                  <span className="page-num">page {this.state.offset/15 + 1}</span>
+                  <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
+                </div>
               </div>
             </div>
-
-            <Player/>
           </div>
         )
     }
@@ -87,7 +130,6 @@ export default class Explore extends React.Component {
  XHR to `https://create-bootcamp-songcloud-server.now.sh/tracks?genre=${genre}` (in componentDidMount)
  this.setState{songs: ...}
  */
-
 
 /*
  render() {
