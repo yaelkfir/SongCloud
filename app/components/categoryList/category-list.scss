@@ -1,8 +1,9 @@
-//category list
+@import 'assets/styles/colors';
+
 .category-list {
   width: 100%;
   height: 40px;
-  background-color: #DDE4E6 ;
+  background-color: $mainGray ;
   display: flex;
   line-height: 40px;
   position: absolute;
@@ -25,7 +26,7 @@
   padding-right: 10px;
 }
 .category:hover {
-  background-color: #c3c9cb;
+  background-color: $hoverGray;
 }
 
 .category-list a,

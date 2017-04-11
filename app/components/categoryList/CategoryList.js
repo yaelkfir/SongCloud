@@ -1,6 +1,7 @@
 /**
  * Created by yaelo on 4/1/17.
  */
+import './category-list.scss';
 
 import React from 'react'
 

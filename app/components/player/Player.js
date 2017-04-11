@@ -1,6 +1,4 @@
-/**
- * Created by yaelo on 3/28/17.
- */
+import './player.scss'
 
 import React from 'react'
 
@@ -21,19 +19,25 @@ console.info('playr prps',props);
   const trackTitel = props.track.title ? trackTitleSlicer(props.track.title, 50) : 'song';
 
   console.info('player track url',trackUrl);
-  return(
-  <div className="explore-footer">
-    <div className="player-track-details">
-      <img src={trackImg} alt="song thumbnail"/>
-      <p>{trackTitel}</p>
-    </div>
-<div className="player-controls">
-  <audio controls="controls"
-         src={ trackUrl }
-         autoPlay/>
-</div>
-  </div>
-)
+
+  if(props.playerVisible){
+
+    return(
+      <div className="player">
+        <div className="player-track-details">
+          <img src={trackImg} alt="song thumbnail"/>
+          <p>{trackTitel}</p>
+        </div>
+        <div className="player-controls">
+          <audio controls="controls"
+                 src={ trackUrl }
+                 autoPlay/>
+        </div>
+      </div>
+    )
+  }
+  else { return <div className="player hidden"/> }
+
 }
 
 /*

@@ -1,12 +1,11 @@
-/**
- * Created by yaelo on 3/28/17.
- */
+
+import './explore.scss'
 
 import React from 'react';
-
+import uuid from 'uuid';
 import MDSpinner from "react-md-spinner";
-import TrackList from './TrackList'
-import CategoryList from './CategoryList'
+import TrackList from '../trackList/TrackList'
+import CategoryList from '../categoryList/CategoryList'
 // import Pagination from './Pagination'
 // import Player from './Player'
 
@@ -15,16 +14,13 @@ export default class Explore extends React.Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
       tracks: [],
       trackLoading: 'loading',
-      selectedTrack: {},
       offset: 0,
-      limit: 15
+      limit: 15,
+      page: 'explore'
     };
-
-    console.info('explore props',this.props);
   }
 
   //pagination
@@ -76,7 +72,9 @@ export default class Explore extends React.Component {
 
     if (prevGenre !== targetGenre && prevState.offset === this.state.offset) {
 
-      this.setState({offset: 0} ,() => {
+      this.setState({offset: 0,
+        trackLoading:'loading'
+      } ,() => {
         this.GetXhr();
       })
     }
@@ -88,6 +86,8 @@ export default class Explore extends React.Component {
   }
 
   render() {
+
+
 
     switch (this.state.trackLoading) {
       case 'loading':
@@ -109,7 +109,14 @@ export default class Explore extends React.Component {
             <CategoryList/>
             <div className="over-flow-explore">
               <div className="explore">
-                <TrackList tracks={this.state.tracks} genre={this.props.match.params.genre} updateCurrentTrack={ this.props.updateCurrentTrack }/>
+                <TrackList tracks={this.state.tracks}
+                           genre={this.props.match.params.genre}
+                           updateCurrentTrack={ this.props.updateCurrentTrack }
+                           page={this.state.page}
+                           trackTitleSlicer = { this.props.trackTitleSlicer }
+                           plyListData={this.props.plyListData}
+                           addTrackToPlyList={this.props.addTrackToPlyList}
+                />
                 <div className="pagination">
                   <button onClick={()=>{ this.prevPage() }}
                           disabled={this.state.offset === 0}>prev

@@ -1,0 +1,66 @@
+@import 'assets/styles/colors';
+
+.explore {
+  color: black;
+
+  display: flex;
+  min-height: calc(100% - 64px);
+  flex-direction: column;
+
+}
+
+.explore-container{
+  height: calc(100% - 59px);
+
+}
+
+.over-flow-explore{
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
+.spinner-wrapper{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+//pagination
+
+.pagination{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+
+.pagination button{
+  height: 30px;
+  width: 80px;
+  border: 0;
+  border-radius: 2px;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0;
+  line-height: 0.8rem;
+}
+
+.prev-btn{
+  background-color: $mainGray;
+}
+
+.next-btn{
+  background-color: $mainBlue;
+}
+
+.page-num{
+  padding: 0 30px;
+}

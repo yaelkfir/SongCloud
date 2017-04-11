@@ -2,7 +2,7 @@
  * Created by yaelo on 3/28/17.
  */
 
-
+import './top-bar.scss'
 import React from 'react'
 
 import {

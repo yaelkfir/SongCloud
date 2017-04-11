@@ -1,16 +1,22 @@
-.explore-footer{
+@import 'assets/styles/colors';
+
+.player{
   width: 100%;
   display: -ms-flexbox;
   display: flex;
   flex-direction: row;
   height: 60px;
   align-items: center;
-  background-color: #FBFBFB;
+  background-color: $playerGray;
   padding: 0 10px;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all .2s ease-out;
+
 }
 
 .player-track-details{
@@ -34,4 +40,9 @@ width: 50px;
 
 audio{
   width: 100%;
+}
+
+.player.hidden{
+  transform: translateY(60px);
+  opacity: 0;
 }

@@ -1,17 +1,8 @@
-/**
- * Created by yaelo on 3/28/17.
- */
+import './sign-up.scss'
 
 import React from 'react'
 
 export default function signup() {
-
-  function toggelLabel(){
-
-
-
-
-  }
 
   return (
     <div className="sign-up-page">

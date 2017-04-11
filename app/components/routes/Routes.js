@@ -4,9 +4,9 @@
 
 import React from 'react'
 
-import Signup from './Signup'
-import Signin from './Signin'
-import Root from './Root'
+import Signup from '../signUp/Signup'
+import Signin from '../signIn/Signin'
+import Root from '../root/Root'
 
 import {
   BrowserRouter,

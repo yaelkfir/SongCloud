@@ -1,5 +1,5 @@
 //song list
-.list-container {
+.play-list-container {
 
   display: flex;
   justify-content: center;
@@ -8,7 +8,7 @@
 
 }
 
-.list-container h3 {
+.play-list-container h3 {
   font-size: 1.4rem;
   margin: 30px 0;
   text-transform: capitalize;
@@ -145,7 +145,7 @@
 
 .track-footer .fa-heart-o:hover {
   font-weight: bold;
-  color: #1E88E5;;
+  color: black;
 }
 
 .track-footer .fa-heart {
@@ -178,13 +178,13 @@
 
 }
 
-.drop-down-container {
+.like-drop-down {
   height: 14px;
   position: relative;
 
 }
 
-.drop-down-container h4 {
+.like-drop-down h4 {
   font-size: 0.7rem;
   text-transform: capitalize;
   text-align: left;
@@ -249,3 +249,18 @@ input[type=checkbox] {
   border: 2px solid #2196f3;
 }
 
+.click-background{
+  background-color: beige;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 9;
+}
+
+.track-footer .blue {
+  color: #1E88E5;
+  font-weight: 600;
+}

@@ -1,0 +1,148 @@
+@import 'assets/styles/colors';
+
+.playlist-page {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+}
+
+.playlist-page .play-list-container {
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.playlist-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
+.side-bar {
+  flex: 0 0 200px;
+  border-right: 1px solid $outlineGray;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-bar > button {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 180px;
+  border: none;
+  height: 30px;
+  color: white;
+  border-radius:2px ;
+}
+
+.play-lists-list {
+  width: 180px;
+  padding-top: 20px;
+  border-top: 1px solid $outlineGray;
+}
+
+.play-lists-list li{
+height: 30px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
+.list-title {
+  margin-top: 20px;
+  border: 1px solid $outlineGray;
+  height: 64px;
+}
+
+.playlist-container .list-title h3 {
+  margin: 0;
+  line-height: 63px;
+  font-size: 1.4rem;
+  font-weight: 100;
+  display: inline-block;
+}
+
+.playlist-container .list-title .number-tracks {
+  font-size: 0.7rem;
+  padding:0.2rem 0.4rem;
+  border-radius: 50%;
+
+
+  background-color: $mainBlue;
+}
+
+.playlist-container ul {
+  padding: 20px;
+}
+
+.playlist-container .play-list-container .play-list-container{
+  padding: 0;
+}
+.number-badge-container{
+  position: relative;
+  display: inline-block;
+}
+
+.number-badge{
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
+  background-color: $mainBlue;
+  padding: 0 0.5rem;
+  border-radius: 50px;
+  height: 20px;
+  color: white;
+  line-height: 21px;
+  font-size: 0.7rem;
+}
+
+.list-title{
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding:0 20px;
+
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 2px 0 rgba(0,0,0,0.12);
+
+}
+
+.list-title > div{
+  width: 100%;
+}
+
+.list-title input{
+  width: 100%;
+  font-size: 1.4rem;
+  font-weight: 300;
+  border: none;
+  border-bottom: 1px solid $mainBlue;
+  text-transform: capitalize;
+
+  will-change: background-position;
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, $mainBlue 96%);
+  background-position: -200px 0;
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  color: #2b3033;
+}
+
+.list-title input:focus{
+  transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+  background: linear-gradient(to bottom, rgba(33, 150, 243, 0) 96%, $mainBlue 96%);
+  background-position: 0;
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+}
