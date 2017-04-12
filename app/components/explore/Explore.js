@@ -116,6 +116,9 @@ export default class Explore extends React.Component {
                            trackTitleSlicer = { this.props.trackTitleSlicer }
                            plyListData={this.props.plyListData}
                            addTrackToPlyList={this.props.addTrackToPlyList}
+                           removeTrackFromPlyList={this.props.removeTrackFromPlyList}
+                           addNewPlyList={this.props.addNewPlyList}
+
                 />
                 <div className="pagination">
                   <button onClick={()=>{ this.prevPage() }}

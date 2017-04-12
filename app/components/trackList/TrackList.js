@@ -22,55 +22,67 @@ export default function TrackList(props) {
   }
 
   function trackCradMaker(track){
+    if(props.tracks.length > 0) {
 
-    let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : '';
-    let trackplylist = props.plyListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === track.id));
-    onPlyList =  (trackplylist)? true : false;
+      let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : '';
+      let trackplylist = props.plyListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === track.id));
+      onPlyList = (trackplylist) ? true : false;
 
-    return(
+      return (
 
-      <li key={uuid()} id={track.id} className="track-container">
+        <li key={uuid()} id={track.id} className="track-container">
 
-        <div className="track">
-          <div className="img-container"
-               style={{'backgroundImage':trackImg}}
-               onClick={()=> {return props.updateCurrentTrack(track)}}
-          />
-          <p title={track.title}>
-            {props.trackTitleSlicer(track.title, 37)}
-          </p>
-          <div className="track-footer">
-            <div className="track-time">
-              <span className="fa fa-clock-o" aria-hidden="true"/>
-              <p>{msToTime(track.duration)}</p>
+          <div className="track">
+            <div className="img-container"
+                 style={{'backgroundImage': trackImg}}
+                 onClick={() => {
+                   return props.updateCurrentTrack(track)
+                 }}
+            />
+            <p title={track.title}>
+              {props.trackTitleSlicer(track.title, 37)}
+            </p>
+            <div className="track-footer">
+              <div className="track-time">
+                <span className="fa fa-clock-o" aria-hidden="true"/>
+                <p>{msToTime(track.duration)}</p>
+              </div>
+              <LikeTrack
+                removeTrackFromPlyList={props.removeTrackFromPlyList}
+                page={page}
+                addTrackToPlyList={props.addTrackToPlyList}
+                trackTitleSlicer={ props.trackTitleSlicer }
+                addNewPlyList={props.addNewPlyList}
+                plyListData={props.plyListData}
+                trackData={track}
+                onPlyList={onPlyList}
+              />
             </div>
-            <LikeTrack
-              page={page}
-              addTrackToPlyList={props.addTrackToPlyList}
-              trackTitleSlicer = { props.trackTitleSlicer }
-              plyListData={props.plyListData}
-              trackData={track}
-              onPlyList = {onPlyList} />
           </div>
-        </div>
-      </li>
-    )
-
+        </li>
+      )
+    }
+    else {
+      return <p>empty</p>
+    }
   }
 
+
+
   function gridHoldPlacer(length) {
-    if (length < 16) {
-      const num = 16 - length;
+    let arr = [];
+    if(page === 'explore'){
+      if (length < 16) {
+        const num = 16 - length;
+        for (let i = 0; i < num; i++) {
+          arr.push(1)
+        }
 
-
-      let arr = [];
-
-      for (let i = 0; i < num; i++) {
-        arr.push(1)
+        return arr;
       }
-
-      return arr;
     }
+else {
+      return arr;}
   }
 
 

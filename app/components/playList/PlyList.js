@@ -11,13 +11,12 @@ export default class PlyListUl extends React.Component {
     super(props);
 
     this.state = {
-      inputShowing: this.props.inputShowing,
-      inputValue: this.props.plyList.title? this.props.plyList.title : 'new playlist',
-      title: this.props.plyList.title? this.props.plyList.title : 'new playlist',
-      newPlyList: this.props.newPlyList,
+      inputShowing:null,
+      inputValue:null,
+      title: null,
+      newPlyList: null,
     };
 
-    console.info(this.state.title);
     this.toggelDropDwonState = this.toggelDropDwonState.bind(this);
 
   }
@@ -26,6 +25,26 @@ export default class PlyListUl extends React.Component {
    if(this.state.inputShowing){
      this.nameInput.focus();
    }
+
+
+  }
+  componentDidMount(){
+
+    const inputShowing = this.props.inputShowing;
+    const inputValue = this.props.plyList.title? this.props.plyList.title : '';
+    const title = this.props.plyList.title? this.props.plyList.title : 'untitled';
+    const newPlyList = this.props.inputShowing;
+
+    this.setState({
+      inputShowing:inputShowing,
+      inputValue:inputValue,
+      title:title,
+      newPlyList:newPlyList
+    });
+
+    if(this.state.inputShowing){
+      this.nameInput.focus();
+    }
   }
 
   handelTitleChange(event){
@@ -49,21 +68,31 @@ export default class PlyListUl extends React.Component {
     }
   }
 
+  inputKeyDown(event){
+    if (event.keyCode === 13){
+      this.props.setOldPlyList(this.props.plyList.id);
+      this.toggelDropDwonState();
+      this. handelTitleChange(event)
+    }
+  }
+
   toggelDropDwonState() {
+
     (this.state.inputShowing) ? this.setState({inputShowing: false}) : this.setState({inputShowing: true});
   }
 
   render() {
 
 
-    if(this.state.newPlyList === false){
       const plyListinput = (this.state.inputShowing)
-        ?  <input type="text" value={this.state.inputValue}
-                  ref={(input)=> this.nameInput = input }
+        ?  <input type="text" value={this.state.inputValue} placeholder="untitled"
+                  ref={(input)=> this.nameInput = input}
                   onBlur={ (event) => {
+                    this.props.setOldPlyList(this.props.plyList.id);
                     this.toggelDropDwonState();
                     this. handelTitleChange(event)
                   } }
+                  onKeyDown={(event)=> this.inputKeyDown(event)}
                   onChange={(event) => this.handelTitleChange(event)}/>
         : null;
 
@@ -76,7 +105,6 @@ export default class PlyListUl extends React.Component {
           </div>
         </div>
         : null;
-
 
 
       return <div className="play-list-container">
@@ -96,14 +124,9 @@ export default class PlyListUl extends React.Component {
                    trackTitleSlicer={ this.props.trackTitleSlicer }
                    plyListData={this.props.plyListData}
                    addTrackToPlyList={this.props.addTrackToPlyList}
+                   removeTrackFromPlyList={this.props.removeTrackFromPlyList}
 
         />
       </div>
     }
-
-    else {
-      return null;
-    }
-
-  }
 }

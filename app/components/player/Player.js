@@ -3,7 +3,6 @@ import './player.scss'
 import React from 'react'
 
 export default function Player(props) {
-console.info('playr prps',props);
 
   function trackTitleSlicer(title, num) {
     if (title.length > num + 1) {
@@ -17,8 +16,6 @@ console.info('playr prps',props);
   let trackImg = props.track.artwork_url ? props.track.artwork_url.replace('large','t300x300') : '';
   const trackUrl = `${props.track.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;
   const trackTitel = props.track.title ? trackTitleSlicer(props.track.title, 50) : 'song';
-
-  console.info('player track url',trackUrl);
 
   if(props.playerVisible){
 

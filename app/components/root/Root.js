@@ -16,16 +16,18 @@ import Explore from '../explore/Explore'
 import TopBar from '../topBar/Topbar'
 
 export default class Root extends React.Component {
+
   constructor() {
     super();
 
     this.state = {
       currentTrack: {},
-      playerVisible:false,
+      playerVisible: false,
       plyListData: [
         {
-          id:123,
+          id: 123,
           title: 'Electro Feel',
+          newPlyList: false,
           tracks: [
             {
               artwork_url: "https://i1.sndcdn.com/artworks-000150027827-4exjil-large.jpg",
@@ -123,7 +125,7 @@ export default class Root extends React.Component {
               stream_url: "https://api.soundcloud.com/tracks/79973942/stream",
               streamable: true,
               tag_list: "House.NET ",
-              Records:" House Electro Electro-House Housemusic Complextro Bass BassMusic Music Electronic Melodic MOOMBAHTON Prog-House Progressive Prog-Trance EDM Dance DubStep Trance Techno Drumstep Electro-Prog Minimal TechHouse",
+              Records: " House Electro Electro-House Housemusic Complextro Bass BassMusic Music Electronic Melodic MOOMBAHTON Prog-House Progressive Prog-Trance EDM Dance DubStep Trance Techno Drumstep Electro-Prog Minimal TechHouse",
               title: "Lana Del Rey - Summertime Sadness (Cedric Gervais Remix)",
               track_type: "remix",
               uri: "https://api.soundcloud.com/tracks/79973942",
@@ -136,8 +138,9 @@ export default class Root extends React.Component {
           ]
         },
         {
-          id:1234,
+          id: 1234,
           title: 'hop Hip',
+          newPlyList: false,
           tracks: [
             {
 
@@ -183,7 +186,7 @@ export default class Root extends React.Component {
               stream_url: "https://api.soundcloud.com/tracks/79973942/stream",
               streamable: true,
               tag_list: "House.NET ",
-              Records:" House Electro Electro-House Housemusic Complextro Bass BassMusic Music Electronic Melodic MOOMBAHTON Prog-House Progressive Prog-Trance EDM Dance DubStep Trance Techno Drumstep Electro-Prog Minimal TechHouse",
+              Records: " House Electro Electro-House Housemusic Complextro Bass BassMusic Music Electronic Melodic MOOMBAHTON Prog-House Progressive Prog-Trance EDM Dance DubStep Trance Techno Drumstep Electro-Prog Minimal TechHouse",
               title: "Lana Del Rey - Summertime Sadness (Cedric Gervais Remix)",
               track_type: "remix",
               uri: "https://api.soundcloud.com/tracks/79973942",
@@ -196,8 +199,9 @@ export default class Root extends React.Component {
           ]
         },
         {
-          id:12345,
+          id: 12345,
           title: 'Morning Sunshine',
+          newPlyList: false,
           tracks: [
 
             {
@@ -261,6 +265,9 @@ export default class Root extends React.Component {
     this.updatePlyListTitle = this.updatePlyListTitle.bind(this);
     this.addNewPlyList = this.addNewPlyList.bind(this);
     this.addTrackToPlyList = this.addTrackToPlyList.bind(this);
+    this.removeTrackFromPlyList = this.removeTrackFromPlyList.bind(this);
+    this.setOldPlyList = this.setOldPlyList.bind(this);
+
   }
 
 
@@ -268,10 +275,9 @@ export default class Root extends React.Component {
 
     this.setState({
       currentTrack: Object.assign({}, newTrack),
-      playerVisible:true
+      playerVisible: true
     })
   }
-
 
   trackTitleSlicer(str, num) {
     if (str.length > num) {
@@ -282,47 +288,76 @@ export default class Root extends React.Component {
     }
   }
 
-  addTrackToPlyList(plyListId,track){
+  addTrackToPlyList(plyListId, track) {
 
     const playLists = [...this.state.plyListData];
 
-    let plyListTem = playLists.find((plyList)=> plyList.id == plyListId );
+    let plyListTem = playLists.find((plyList) => plyList.id == plyListId);
 
     plyListTem.tracks.push(track);
 
-    this.setState({plyListData:playLists});
+    this.setState({plyListData: playLists, dropDownUpdated:true});
+
 
   }
 
-  removeTrackFromPlyList(){
+  removeTrackFromPlyList(plyListId, track) {
+    const playLists = [...this.state.plyListData];
+
+    let plyListTem = playLists.find((plyList) => plyList.id == plyListId);
+    let tempTrack = plyListTem.tracks.find((temTrack) => temTrack.id === track.id);
+
+    const index = plyListTem.tracks.indexOf(tempTrack);
+    plyListTem.tracks.splice(index, 1);
+
+    this.setState({plyListData: playLists});
 
   }
 
   updatePlyListTitle(plyListId, newTitel) {
-    console.info(newTitel);
     const playLists = [...this.state.plyListData];
-    let plyListTem =playLists.find((plyList)=> plyList.id === plyListId);
+    let plyListTem = playLists.find((plyList) => plyList.id === plyListId);
     plyListTem.title = newTitel;
 
-    this.setState({plyListData:playLists});
+    this.setState({plyListData: playLists});
   }
 
 
-  addNewPlyList(){
+  setOldPlyList(plyListId){
     const playLists = [...this.state.plyListData];
+    let plyListTem = playLists.find((plyList) => plyList.id === plyListId);
+    plyListTem.newPlyList = false;
+
+    this.setState({plyListData: playLists});
+
+  }
+
+
+  addNewPlyList(track) {
+    const playLists = [...this.state.plyListData];
+    console.info(track);
+    if(track === undefined) {
       playLists.push({
-      id:uuid(),
-      title: 'new playlist',
-      tracks: []
-    });
+        id: uuid(),
+        title: '',
+        newPlyList: true,
+        tracks: []
+      });
+    }
+else {
 
-    this.setState({plyListData:playLists});
+      playLists.push({
+        id: uuid(),
+        title: '',
+        newPlyList: true,
+        tracks: [track]
+      });
+      }
 
+    this.setState({plyListData: playLists});
   }
 
   render() {
-
-    console.info('current track', this.state.currentTrack);
 
     return <div className="root-app-wraper">
       <TopBar/>
@@ -335,20 +370,25 @@ export default class Root extends React.Component {
                             trackTitleSlicer={ this.trackTitleSlicer }
                             plyListData={this.state.plyListData}
                             addTrackToPlyList={this.addTrackToPlyList}
+                            removeTrackFromPlyList={this.removeTrackFromPlyList}
+                            addNewPlyList={this.addNewPlyList}
                             {...props}/>
           }
           }/>
           <Route path="/playlists" render={ (props) => {
 
             return <PlayLists
-                              updateCurrentTrack={ this.updateCurrentTrack }
-                              trackTitleSlicer={ this.trackTitleSlicer }
-                              updatePlyListTitle={this.updatePlyListTitle}
-                              plyListData={this.state.plyListData}
-                              addNewPlyList={this.addNewPlyList}
-                              addTrackToPlyList={this.addTrackToPlyList}
+              updateCurrentTrack={ this.updateCurrentTrack }
+              trackTitleSlicer={ this.trackTitleSlicer }
+              updatePlyListTitle={this.updatePlyListTitle}
+              plyListData={this.state.plyListData}
+              addNewPlyList={this.addNewPlyList}
+              addTrackToPlyList={this.addTrackToPlyList}
+              removeTrackFromPlyList={this.removeTrackFromPlyList}
+              setOldPlyList={this.setOldPlyList}
 
-                              {...props}/>
+
+              {...props}/>
           }
           }/>
         </Switch>

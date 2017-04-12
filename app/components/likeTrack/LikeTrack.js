@@ -1,5 +1,8 @@
 import React from 'react'
 // import TrackDrop from './TrackDrop'
+import {
+  NavLink
+} from 'react-router-dom';
 
 export default class LikeTrack extends React.Component {
   constructor(props) {
@@ -9,30 +12,41 @@ export default class LikeTrack extends React.Component {
       openedDropDown: false,
       inPlyList:false,
       currentPage: '',
-      onPlyList: this.props.onPlyList
+      onPlyList: null
+
     };
 
     this.isTrackOnPlyList = this.isTrackOnPlyList.bind(this);
+
+  }
+
+  componentWillReceiveProps(){
+
+  }
+
+  componentDidMount(){
+    console.info('mounted');
+    this.setState({onPlyList: this.props.onPlyList});
   }
 
   handleInputChange(event){
       const target = event.target;
-    target.type === 'checkbox' ? console.info(target.checked) : console.info(target.value);
 
-    if(target.checked === true){
+    if(target.type === 'checkbox'){
+      if(target.checked === true){
 
-      this.props.addTrackToPlyList(target.id, this.props.trackData)
-console.info(target.id);
+        this.props.addTrackToPlyList(target.id, this.props.trackData)
 
+      }
+      else {
+
+        this.props.removeTrackFromPlyList(target.id, this.props.trackData)
+
+      }
     }
-    else {
-      console.info('remove from this ply list');
-    }
-
   }
 
   toggelDropDwonState() {
-
     this.setState({currentPage:this.props.page}, () => {
 
       (this.state.openedDropDown)
@@ -44,13 +58,13 @@ console.info(target.id);
 
   isTrackOnPlyList(plyList){
     let plylistTem = plyList.tracks.find((plyListTrack) => this.props.trackData.id === plyListTrack.id);
-    console.info(plylistTem);
 
     if(plylistTem){
       return <input type="checkbox" name="plyList" value={plyList.title} id={plyList.id} defaultChecked={true} onChange={(event)=> {this.handleInputChange(event)}}/>
     }
     else {
-      return <input type="checkbox" name="plyList" value={plyList.title} id={plyList.id} onChange={(event)=>{this.handleInputChange(event)}}/>
+      return <input type="checkbox" name="plyList" value={plyList.title} id={plyList.id} onChange={
+        (event)=>{this.handleInputChange(event)}}/>
     }
   }
 
@@ -59,15 +73,14 @@ console.info(target.id);
 
       return <div>
         <h4>add to playlist</h4>
-        <button>create playlist +</button>
+        <button onClick={()=>this.props.addNewPlyList(this.props.trackData)}><NavLink to="/playlists">create playlist +</NavLink></button>
       </div>;
 
     }
 
     else {
       return <div>
-        <h4>playlist</h4>
-        <button>whtEvr</button>
+        <h4>edit playlist</h4>
       </div>;
     }
   }
@@ -86,7 +99,7 @@ console.info(target.id);
   handelDropDown() {
 
     return (
-      <div>
+      <div  ref={(div)=> this.dropDown = div} >
         <div className="like-drop-down">
           {this.heartIconMode()}
           <div className='track-drop-list'>
@@ -112,7 +125,6 @@ console.info(target.id);
   };
 
   render() {
-console.info('like propps',this.props.addTrackToPlyList);
     if (!this.state.openedDropDown) {
       if(!this.state.onPlyList){
         return (
