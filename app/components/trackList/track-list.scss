@@ -260,6 +260,17 @@ input[type=checkbox] {
   z-index: 9;
 }
 
+.explore-container .click-background{
+  background-color: beige;
+  position: absolute;
+  top: 0;
+  bottom: -300px;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 9;
+}
+
 .track-footer .blue {
   color: #1E88E5;
   font-weight: 600;

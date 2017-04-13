@@ -1,10 +1,18 @@
-/**
- * Created by yaelo on 4/12/17.
- */
 export default function currentTrackReducer(currentTrack = {}, action) {
   if (action.type === 'UPDATE_CURRENT_TRACK') {
-    return currentTrack;
+    console.info('action',action.track);
+    return action.track;
   }
 
   return currentTrack;
 }
+
+/*
+ updateCurrentTrack(newTrack) {
+
+ this.setState({
+ currentTrack: Object.assign({}, newTrack),
+ playerVisible: true
+ })
+ }
+ */

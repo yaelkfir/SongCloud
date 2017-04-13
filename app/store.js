@@ -4,15 +4,15 @@
 import { createStore, combineReducers } from 'redux';
 
 import currentTrack from './reducers/current-track';
-
-const initialStore = {
-  currentTrack: null
-};
+import playerVisible from './reducers/player-visible';
+import playListData from './reducers/plyList-data';
 
 const reducer = combineReducers({
-  currentTrack
+  currentTrack,
+  playerVisible,
+  playListData
 });
 
-const store = createStore(reducer, initialStore);
+const store = createStore(reducer);
 
 export default store;

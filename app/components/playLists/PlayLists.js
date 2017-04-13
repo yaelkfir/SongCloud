@@ -8,9 +8,10 @@ import React from 'react'
 
 import PlyListUl from '../playList/PlyList'
 import uuid from 'uuid';
+import { connect } from 'react-redux';
 
 
-export default class Playlists extends React.Component {
+class Playlists extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,104 +21,77 @@ export default class Playlists extends React.Component {
 
   }
 
-  /*
-
-   scrollTo(elm){
-   scroll.scrollTo(`${elm}`, {
-   duration: 1500,
-   delay: 100,
-   smooth: true,
-   containerId: 'ContainerElementID'
-   };
-
-
-   export default (props) => (
-   <Page>
-
-   <Navbar brand={brand} className="navbar-fixed-top">
-   <NavItem><Scrollchor to="" className="nav-link">Home</Scrollchor></NavItem>
-   <NavItem><Scrollchor to="#sample-code" className="nav-link">Sample</Scrollchor></NavItem>
-   <NavItem><Scrollchor to="#features" className="nav-link">Features</Scrollchor></NavItem>
-   <NavItem><Scrollchor to="footer" className="nav-link">SignUp</Scrollchor></NavItem>
-   </Navbar>
-
-
-   <Section id="sample-code">
-
-   </Section>
-
-   <div id="features">
-
-   </div>
-
-   <footer id="footer">
-
-   </footer>
-
-   </Page>
-
-   */
-
-  createPlyListsUls(plyList) {
+  createPlyListsUls(plyList,i) {
 
     let isPlyListNew = plyList.newPlyList? true: false;
     let isInputVisible = plyList.newPlyList? true: false;
 
-    return <PlyListUl
+    console.info(i);
+
+    let plyListNum = plyList.id;
+    console.info(plyListNum);
+    return <div key={uuid()} ref={'scroll'+plyList.id} data={plyList.id}>
+    <PlyListUl
 
       id={`${plyList.id}`}
-      key={plyList.id}
       plyList={plyList}
-      updateCurrentTrack={ this.props.updateCurrentTrack }
       page={this.state.page}
       trackTitleSlicer={ this.props.trackTitleSlicer }
-      plyListData={this.props.plyListData}
-      updatePlyListTitle={this.props.updatePlyListTitle}
       inputShowing={isInputVisible}
       newPlyList={isPlyListNew}
-      addTrackToPlyList={this.props.addTrackToPlyList}
-      removeTrackFromPlyList={this.props.removeTrackFromPlyList}
-      setOldPlyList={this.props.setOldPlyList}
 
     />
+    </div>
+  }
+
+  scrollMadaFucker(event){
+    this.refs[event.target.id].scrollIntoView();
 
   }
 
-
   createSideBar(plyList) {
 //nav list
-    /*
-     <Navbar brand={brand} className="navbar-fixed-top">
-     <NavItem><Scrollchor to="" className="nav-link">Home</Scrollchor></NavItem>
-     <NavItem><Scrollchor to="#sample-code" className="nav-link">Sample</Scrollchor></NavItem>
-     <NavItem><Scrollchor to="#features" className="nav-link">Features</Scrollchor></NavItem>
-     <NavItem><Scrollchor to="footer" className="nav-link">SignUp</Scrollchor></NavItem>
-     </Navbar>
-     */
     const plyListTitel = this.props.trackTitleSlicer(plyList.title, 25);
 
-    return <li key={uuid()}>
-      <p>{plyListTitel}</p>
+    return <li key={uuid()} id={'scroll'+ plyList.id} onClick={(event)=> this.scrollMadaFucker(event)}>
+      <p id={'scroll'+ plyList.id} >{plyListTitel}</p>
     </li>
 
   }
 
   render() {
-
     return <div className="playlist-page">
       <div className="side-bar">
-        <button className="next-btn" onClick={() => this.props.addNewPlyList()}>add new playlist</button>
+        <button className="next-btn" onClick={() => {this.props.handelNewPlyList()}}>add new playlist</button>
         <ul className="play-lists-list">
-          {this.props.plyListData.map((plyList) => this.createSideBar(plyList))}
+          {this.props.playListData.map((plyList,i) => this.createSideBar(plyList,i))}
         </ul>
       </div>
 
       <div className="playlist-container">
-        {this.props.plyListData.map((plyList) => this.createPlyListsUls(plyList))}
+        {this.props.playListData.map((plyList,i) => this.createPlyListsUls(plyList,i))}
       </div>
     </div>
   }
 
 }
 
+function mapStateToProps(stateData) {
 
+  return {
+    playListData: stateData.playListData,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    handelNewPlyList(){
+      dispatch({
+        type: 'ADD_NEW_PLAY_LIST',
+        track:false
+      });
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Playlists);

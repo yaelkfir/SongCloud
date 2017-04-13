@@ -3,9 +3,11 @@ import React from 'react'
 import {
   NavLink
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import store from '../../store'
 
-export default class LikeTrack extends React.Component {
-  constructor(props) {
+class LikeTrack extends React.Component {
+  constructor(props){
     super(props);
 
     this.state = {
@@ -20,28 +22,56 @@ export default class LikeTrack extends React.Component {
 
   }
 
-  componentWillReceiveProps(){
-
+  componentDidMount(){
+    this.setState({onPlyList: this.props.onPlyList});
   }
 
-  componentDidMount(){
-    console.info('mounted');
-    this.setState({onPlyList: this.props.onPlyList});
+  handelNewPlyList(){
+    store.dispatch({
+      type: 'ADD_NEW_PLAY_LIST',
+      track: this.props.trackData
+    });
   }
 
   handleInputChange(event){
       const target = event.target;
 
     if(target.type === 'checkbox'){
+
+
       if(target.checked === true){
 
-        this.props.addTrackToPlyList(target.id, this.props.trackData)
+        this.setState({onPlyList:true});
 
+        this.props.addTrackToPlyList(this.props.trackData, target.id);
       }
+          // store.dispatch({
+          //   type: 'ADD_TRACK_TO_PLAY_LIST',
+          //   track:this.props.trackData,
+          //   plyListId:target.id
+          // });
+
+
       else {
 
-        this.props.removeTrackFromPlyList(target.id, this.props.trackData)
+        const storeData = store.getState();
+        storeData.playListData.forEach((plyList)=> {
+          const onPlyList = plyList.tracks.find((track) => track.id === this.props.trackData.id);
+console.info(onPlyList);
+         if(onPlyList){
+           this.setState({onPlyList:true});
+         }
+         else {
+           this.setState({onPlyList:false});
+         }
+        });
 
+        this.props.removeFromPlyList(this.props.trackData,target.id)
+        // store.dispatch({
+        //   type:'REMOVE_TRACK_FROM_PLAY_LIST',
+        //   track:this.props.trackData,
+        //   plyListId:target.id
+        // });
       }
     }
   }
@@ -73,7 +103,7 @@ export default class LikeTrack extends React.Component {
 
       return <div>
         <h4>add to playlist</h4>
-        <button onClick={()=>this.props.addNewPlyList(this.props.trackData)}><NavLink to="/playlists">create playlist +</NavLink></button>
+        <button onClick={()=>this.handelNewPlyList()}><NavLink to="/playlists">create playlist +</NavLink></button>
       </div>;
 
     }
@@ -86,7 +116,6 @@ export default class LikeTrack extends React.Component {
   }
 
   heartIconMode(){
-
     if(!this.state.onPlyList){
       return <span className="fa fa-heart-o blue"  aria-hidden="true" onClick={ () => this.toggelDropDwonState() }/>
     }
@@ -96,7 +125,9 @@ export default class LikeTrack extends React.Component {
     }
   }
 
+
   handelDropDown() {
+    const storeData = store.getState();
 
     return (
       <div  ref={(div)=> this.dropDown = div} >
@@ -106,7 +137,7 @@ export default class LikeTrack extends React.Component {
             {this.dropDownMode()}
             <ul>
               {
-                this.props.plyListData.map((plyList) => {
+                storeData.playListData.map((plyList) => {
 
                 return<li key={plyList.id}>
                   <label htmlFor={plyList.id} className="checkbox">{this.props.trackTitleSlicer(plyList.title, 14)}
@@ -115,7 +146,8 @@ export default class LikeTrack extends React.Component {
                   </label>
                 </li>;
 
-              })}
+              })
+              }
             </ul>
           </div>
         </div>
@@ -146,3 +178,27 @@ export default class LikeTrack extends React.Component {
       }
     }
 }
+
+/*
+ import { connect } from 'react-redux';
+ */
+function mapDispatchToProps(dispatch) {
+  return {
+    addTrackToPlyList(track, plylist){
+      dispatch({
+        type: 'ADD_TRACK_TO_PLAY_LIST',
+        track:track,
+        plyListId:plylist
+      });
+    },
+    removeFromPlyList(track, plylist){
+      dispatch({
+        type:'REMOVE_TRACK_FROM_PLAY_LIST',
+        track:track,
+        plyListId:plylist
+      });
+    }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(LikeTrack);

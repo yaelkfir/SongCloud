@@ -1,8 +1,9 @@
 import './player.scss'
 
 import React from 'react'
+import { connect } from 'react-redux';
 
-export default function Player(props) {
+function Player(props) {
 
   function trackTitleSlicer(title, num) {
     if (title.length > num + 1) {
@@ -13,9 +14,9 @@ export default function Player(props) {
     }
   }
 
-  let trackImg = props.track.artwork_url ? props.track.artwork_url.replace('large','t300x300') : '';
-  const trackUrl = `${props.track.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;
-  const trackTitel = props.track.title ? trackTitleSlicer(props.track.title, 50) : 'song';
+  let trackImg = props.currentTrack.artwork_url ? props.currentTrack.artwork_url.replace('large','t300x300') : '';
+  const trackUrl = `${props.currentTrack.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;
+  const trackTitel =props.currentTrack.title ? trackTitleSlicer(props.currentTrack.title, 50) : 'song';
 
   if(props.playerVisible){
 
@@ -33,11 +34,30 @@ export default function Player(props) {
       </div>
     )
   }
-  else { return <div className="player hidden"/> }
 
+  else { return <div className="player hidden"/> }
 }
 
+function mapStateToProps(stateData) {
+  console.info(stateData);
+  return {
+    currentTrack: stateData.currentTrack,
+    playerVisible: stateData.playerVisible
+  }
+}
+
+export default connect(mapStateToProps)(Player);
+
+
 /*
+ function mapStateToProps(store) {
+ return {
+ playerVisible: store.playerVisible,
+ currentTrack: store.currentTrack
+ }
+ }
+
+ export default connect(mapStateToProps)(Player);
  (sticky at the bottom)
  - Song thumbnail
  - Song name

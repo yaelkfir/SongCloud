@@ -120,6 +120,9 @@ height: 30px;
 
 .list-title > div{
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .list-title input{
@@ -145,4 +148,67 @@ height: 30px;
   background-position: 0;
   background-size: 200% 100%;
   background-repeat: no-repeat;
+}
+
+.playlist-page .delete-playlist-btn{
+  width: 60px;
+  height: 30px;
+  display: none;
+  cursor: pointer;
+  border-radius: 3px;
+  border: none;
+  background-color: white;
+  color: #F44336;
+  font-size: 0.81rem;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+}
+
+.playlist-page .delete-playlist-btn:after{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, .5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.playlist-page .list-title:hover .delete-playlist-btn{
+  display: inline-block;
+}
+
+.playlist-page .delete-playlist-btn:focus{
+  background-color: #ededed;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+.playlist-page .delete-playlist-btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+.playlist-page .empty-playlist-container{
+  width: 100%;
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
 }

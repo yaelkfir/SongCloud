@@ -4,6 +4,7 @@
 
 import React from 'react'
 import TrackList from '../trackList/TrackList'
+import store from '../../store'
 
 export default class PlyListUl extends React.Component {
 
@@ -47,13 +48,27 @@ export default class PlyListUl extends React.Component {
     }
   }
 
+setOldPlayList(){
+
+  store.dispatch({
+    type: 'SET_OLD_PLAY_LIST',
+    plyListId:this.props.plyList.id
+  });
+
+}
+
   handelTitleChange(event){
     if(event.target.value.length>0){
       this.setState({inputValue:event.target.value,
                       title:event.target.value
         });
 
-      this.props.updatePlyListTitle(this.props.plyList.id ,event.target.value)
+
+      store.dispatch({
+        type: 'UPDATE_PLAY_LIST_TITLE',
+        newTitle:event.target.value,
+        plyListId:this.props.plyList.id
+      });
 
 
     }
@@ -63,21 +78,34 @@ export default class PlyListUl extends React.Component {
         inputValue:event.target.value
       },);
 
-      this.props.updatePlyListTitle(this.props.plyList.id ,'untitled')
+      store.dispatch({
+        type: 'UPDATE_PLAY_LIST_TITLE',
+        newTitle:'untitled',
+        plyListId:this.props.plyList.id
+      });
 
     }
   }
 
   inputKeyDown(event){
     if (event.keyCode === 13){
-      this.props.setOldPlyList(this.props.plyList.id);
+      this.setOldPlayList();
       this.toggelDropDwonState();
       this. handelTitleChange(event)
     }
   }
 
-  toggelDropDwonState() {
+  removePlyList(){
 
+    setTimeout(()=>{
+      store.dispatch({
+      type: 'REMOVE_LIST',
+      plyListId:this.props.plyList.id
+    });}, 500);
+
+  }
+
+  toggelDropDwonState() {
     (this.state.inputShowing) ? this.setState({inputShowing: false}) : this.setState({inputShowing: true});
   }
 
@@ -88,7 +116,7 @@ export default class PlyListUl extends React.Component {
         ?  <input type="text" value={this.state.inputValue} placeholder="untitled"
                   ref={(input)=> this.nameInput = input}
                   onBlur={ (event) => {
-                    this.props.setOldPlyList(this.props.plyList.id);
+                    this.setOldPlayList();
                     this.toggelDropDwonState();
                     this. handelTitleChange(event)
                   } }
@@ -115,17 +143,14 @@ export default class PlyListUl extends React.Component {
             {plyListinput}
             {plyListTitle}
 
+            <button className="delete-playlist-btn" onClick={()=>this.removePlyList()}>delete</button>
           </div>
         </div>
 
-        <TrackList tracks={this.props.plyList.tracks}
-                   updateCurrentTrack={ this.props.updateCurrentTrack }
+        <TrackList
+          tracks={this.props.plyList.tracks}
                    page={this.props.page}
                    trackTitleSlicer={ this.props.trackTitleSlicer }
-                   plyListData={this.props.plyListData}
-                   addTrackToPlyList={this.props.addTrackToPlyList}
-                   removeTrackFromPlyList={this.props.removeTrackFromPlyList}
-
         />
       </div>
     }

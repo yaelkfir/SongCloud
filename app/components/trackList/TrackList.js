@@ -3,6 +3,7 @@ import './track-list.scss'
 import React from 'react'
 import uuid from 'uuid';
 import LikeTrack from '../likeTrack/LikeTrack'
+import store from '../../store'
 
 
 export default function TrackList(props) {
@@ -13,6 +14,21 @@ export default function TrackList(props) {
   const page= props.page;
   let onPlyList;
 
+  const storeData = store.getState();
+
+
+  function handelsongclick(track) {
+
+    store.dispatch({
+      type: 'UPDATE_CURRENT_TRACK',
+      track:track
+    });
+
+    store.dispatch({
+      type: 'UPDATE_PLAYER_VISIBLE',
+    })
+  }
+
 
   function msToTime(duration) {
     const seconds = parseInt((duration / 1000) % 60);
@@ -22,10 +38,11 @@ export default function TrackList(props) {
   }
 
   function trackCradMaker(track){
+
     if(props.tracks.length > 0) {
 
       let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : '';
-      let trackplylist = props.plyListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === track.id));
+      let trackplylist = storeData.playListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === track.id));
       onPlyList = (trackplylist) ? true : false;
 
       return (
@@ -35,9 +52,7 @@ export default function TrackList(props) {
           <div className="track">
             <div className="img-container"
                  style={{'backgroundImage': trackImg}}
-                 onClick={() => {
-                   return props.updateCurrentTrack(track)
-                 }}
+                 onClick={() => { handelsongclick(track)}}
             />
             <p title={track.title}>
               {props.trackTitleSlicer(track.title, 37)}
@@ -48,12 +63,8 @@ export default function TrackList(props) {
                 <p>{msToTime(track.duration)}</p>
               </div>
               <LikeTrack
-                removeTrackFromPlyList={props.removeTrackFromPlyList}
                 page={page}
-                addTrackToPlyList={props.addTrackToPlyList}
                 trackTitleSlicer={ props.trackTitleSlicer }
-                addNewPlyList={props.addNewPlyList}
-                plyListData={props.plyListData}
                 trackData={track}
                 onPlyList={onPlyList}
               />
@@ -88,52 +99,43 @@ else {
 
 
     trackList = props.tracks;
+  function handelPlyList(){
+    if(trackList.length>0){
+return   <ul className="track-list"  key={uuid()}>
+  {
+    trackList.map((track) => trackCradMaker(track))
+  }
+
+  {gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={uuid()}/>)}
+
+</ul>
+    }
+    else{
+      return   <ul className="track-list" key={uuid()}>
+        <li className="empty-playlist-container">empty!</li>
+
+      </ul>
+    }
+  }
+
 
 
   let exploreListTitle = (page === 'explore') ? <h3>Genre:{genre}</h3> : null;
+
     return (
-
-
       <div className="play-list-container" key={uuid()}>
         {exploreListTitle}
-        <ul className="track-list">
-          {
-            trackList.map((track) => trackCradMaker(track))
-          }
-
-          {gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={'num' + i}/>)}
-
-        </ul>
+        {handelPlyList()}
       </div>
 
     )
-
-
-
 }
+
 /*
-
- console.info('on playlist',track, track.id, plyListTrack.id );
- return likeTrack = <LikeTrack
- page={page}
- addTrackToPlyList={props.addTrackToPlyList}
- trackTitleSlicer = { props.trackTitleSlicer }
- plyListData={props.plyListData}
- trackData={track}
- onPlyList = { true } /> ;
- }
- else {
-
- console.info('not on playlist',track);
-
- likeTrack = <LikeTrack
-
- page={page}
- addTrackToPlyList={props.addTrackToPlyList}
- trackTitleSlicer = { props.trackTitleSlicer }
- plyListData={props.plyListData}
- trackData={track}
- onPlyList = { false } /> ;
- }
+.empty-playlist-container{
+ width: 100%;
+ text-align: center;
+ height: 60px;
+ line-height: 60px;
  }
  */

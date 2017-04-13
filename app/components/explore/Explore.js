@@ -111,13 +111,8 @@ export default class Explore extends React.Component {
               <div className="explore">
                 <TrackList tracks={this.state.tracks}
                            genre={this.props.match.params.genre}
-                           updateCurrentTrack={ this.props.updateCurrentTrack }
                            page={this.state.page}
                            trackTitleSlicer = { this.props.trackTitleSlicer }
-                           plyListData={this.props.plyListData}
-                           addTrackToPlyList={this.props.addTrackToPlyList}
-                           removeTrackFromPlyList={this.props.removeTrackFromPlyList}
-                           addNewPlyList={this.props.addNewPlyList}
 
                 />
                 <div className="pagination">
