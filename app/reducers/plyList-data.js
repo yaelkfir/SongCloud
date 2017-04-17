@@ -237,6 +237,12 @@ export default function playListDataReducer(playListData = [
                                                 ]
                                               }], action) {
 
+  if (action.type === 'UPDATE_PLAY_LISTS_DATA'){
+
+    const playLists = action.tempPlyListsData;
+    return playLists
+
+  }
   if (action.type === 'ADD_TRACK_TO_PLAY_LIST') {
 
     const playLists = [...playListData];

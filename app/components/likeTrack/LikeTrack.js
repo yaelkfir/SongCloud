@@ -14,7 +14,8 @@ class LikeTrack extends React.Component {
       openedDropDown: false,
       inPlyList:false,
       currentPage: '',
-      onPlyList: null
+      onPlyList: null,
+      tempPlyListsData:null
 
     };
 
@@ -23,7 +24,12 @@ class LikeTrack extends React.Component {
   }
 
   componentDidMount(){
-    this.setState({onPlyList: this.props.onPlyList});
+    this.setState({
+      onPlyList: this.props.onPlyList,
+      tempPlyListsData:this.props.playListData.map((plyList)=>plyList)
+
+      }
+    );
   }
 
   handelNewPlyList(){
@@ -31,6 +37,27 @@ class LikeTrack extends React.Component {
       type: 'ADD_NEW_PLAY_LIST',
       track: this.props.trackData
     });
+  }
+
+  addTrackToTempList(track, plyListId){
+
+    const playLists = [...this.state.tempPlyListsData];
+    let plyListTem = playLists.find((plyList) => `${plyList.id}` === plyListId);
+    plyListTem.tracks.push(track);
+
+    this.setState({tempPlyListsData:playLists})
+  }
+
+  removeFromTempPlyList(track, plyListId){
+
+    const playLists = [...this.state.tempPlyListsData];
+    let plyListTem = playLists.find((plyList) =>`${plyList.id}` === plyListId);
+    let tempTrack = plyListTem.tracks.find((temTrack) => temTrack.id === track.id);
+    const index = plyListTem.tracks.indexOf(tempTrack);
+    plyListTem.tracks.splice(index, 1);
+
+
+    this.setState({tempPlyListsData:playLists});
   }
 
   handleInputChange(event){
@@ -43,46 +70,41 @@ class LikeTrack extends React.Component {
 
         this.setState({onPlyList:true});
 
-        this.props.addTrackToPlyList(this.props.trackData, target.id);
+        // this.props.addTrackToPlyList(this.props.trackData, target.id);
+        this.addTrackToTempList(this.props.trackData, target.id)
       }
-          // store.dispatch({
-          //   type: 'ADD_TRACK_TO_PLAY_LIST',
-          //   track:this.props.trackData,
-          //   plyListId:target.id
-          // });
-
 
       else {
+//CHECK FOR TRACK ON ANY PLAYLIST
+      //   this.props.playListData.forEach((plyList)=> {
+      //     const onPlyList = plyList.tracks.find((track) => track.id === this.props.trackData.id);
+      //   console.info(onPlyList);
+      //   if(onPlyList){
+      //     this.setState({onPlyList:true});
+      //   }
+      //   else {
+      //     this.setState({onPlyList:false});
+      //   }
+      // });
 
-        const storeData = store.getState();
-        storeData.playListData.forEach((plyList)=> {
-          const onPlyList = plyList.tracks.find((track) => track.id === this.props.trackData.id);
-console.info(onPlyList);
-         if(onPlyList){
-           this.setState({onPlyList:true});
-         }
-         else {
-           this.setState({onPlyList:false});
-         }
-        });
+        // setTimeout(()=>{ this.props.removeFromPlyList(this.props.trackData,target.id) },500)
 
-        this.props.removeFromPlyList(this.props.trackData,target.id)
-        // store.dispatch({
-        //   type:'REMOVE_TRACK_FROM_PLAY_LIST',
-        //   track:this.props.trackData,
-        //   plyListId:target.id
-        // });
+        this.removeFromTempPlyList(this.props.trackData, target.id)
+
       }
     }
   }
 
   toggelDropDwonState() {
+
     this.setState({currentPage:this.props.page}, () => {
 
-      (this.state.openedDropDown)
-        ? this.setState({openedDropDown: false})
-        : this.setState({openedDropDown: true});
-
+      if(this.state.openedDropDown){
+        this.setState({openedDropDown: false});
+        this.props.updatePlyListsData(this.state.tempPlyListsData);
+      }
+        else {this.setState({openedDropDown: true});
+      }
     })
   }
 
@@ -125,9 +147,7 @@ console.info(onPlyList);
     }
   }
 
-
   handelDropDown() {
-    const storeData = store.getState();
 
     return (
       <div  ref={(div)=> this.dropDown = div} >
@@ -137,7 +157,7 @@ console.info(onPlyList);
             {this.dropDownMode()}
             <ul>
               {
-                storeData.playListData.map((plyList) => {
+                this.props.playListData.map((plyList) => {
 
                 return<li key={plyList.id}>
                   <label htmlFor={plyList.id} className="checkbox">{this.props.trackTitleSlicer(plyList.title, 14)}
@@ -183,7 +203,14 @@ console.info(onPlyList);
  import { connect } from 'react-redux';
  */
 function mapDispatchToProps(dispatch) {
+
   return {
+    updatePlyListsData(tempPlylists){
+      dispatch({
+        type: 'UPDATE_PLAY_LISTS_DATA',
+        tempPlyListsData:tempPlylists
+      });
+    },
     addTrackToPlyList(track, plylist){
       dispatch({
         type: 'ADD_TRACK_TO_PLAY_LIST',
@@ -201,4 +228,13 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null,mapDispatchToProps)(LikeTrack);
+
+function mapStateToProps(stateData) {
+
+  return {
+    playListData: stateData.playListData,
+  }
+}
+
+
+export default connect(mapStateToProps ,mapDispatchToProps)(LikeTrack);

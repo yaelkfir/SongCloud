@@ -58,7 +58,7 @@ setOldPlayList(){
 }
 
   handelTitleChange(event){
-    if(event.target.value.length>0){
+    if(event.target.value.length > 0){
       this.setState({inputValue:event.target.value,
                       title:event.target.value
         });
@@ -69,9 +69,8 @@ setOldPlayList(){
         newTitle:event.target.value,
         plyListId:this.props.plyList.id
       });
-
-
     }
+
     else{
       this.setState({
         title:'untitled',
@@ -101,7 +100,7 @@ setOldPlayList(){
       store.dispatch({
       type: 'REMOVE_LIST',
       plyListId:this.props.plyList.id
-    });}, 500);
+    });}, 300);
 
   }
 
@@ -113,7 +112,7 @@ setOldPlayList(){
 
 
       const plyListinput = (this.state.inputShowing)
-        ?  <input type="text" value={this.state.inputValue} placeholder="untitled"
+        ?  <input type="text" value = {this.state.inputValue} placeholder = "untitled"
                   ref={(input)=> this.nameInput = input}
                   onBlur={ (event) => {
                     this.setOldPlayList();
@@ -121,7 +120,7 @@ setOldPlayList(){
                     this. handelTitleChange(event)
                   } }
                   onKeyDown={(event)=> this.inputKeyDown(event)}
-                  onChange={(event) => this.handelTitleChange(event)}/>
+                  onChange={(event) => this.setState({inputValue:event.target.value})}/>
         : null;
 
 

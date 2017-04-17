@@ -18,7 +18,6 @@ class Playlists extends React.Component {
     this.state = {
       page: 'playList'
     };
-
   }
 
   createPlyListsUls(plyList,i) {
@@ -45,7 +44,7 @@ class Playlists extends React.Component {
   }
 
   scrollMadaFucker(event){
-    this.refs[event.target.id].scrollIntoView();
+    this.refs[event.target.id].scrollIntoView({ behavior: 'smooth' });
 
   }
 

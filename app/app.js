@@ -11,6 +11,8 @@ import Routes from './components/routes/Routes.js'
 import store from './store'
 import { Provider } from 'react-redux'
 
+require('smoothscroll-polyfill').polyfill();
+
 
 
 function renderApp(){
