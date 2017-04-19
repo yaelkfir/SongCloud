@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store from '../../store'
+import uuid from 'uuid';
+
 
 class LikeTrack extends React.Component {
   constructor(props){
@@ -32,13 +34,6 @@ class LikeTrack extends React.Component {
     );
   }
 
-  handelNewPlyList(){
-    store.dispatch({
-      type: 'ADD_NEW_PLAY_LIST',
-      track: this.props.trackData
-    });
-  }
-
   addTrackToTempList(track, plyListId){
 
     const playLists = [...this.state.tempPlyListsData];
@@ -51,11 +46,13 @@ class LikeTrack extends React.Component {
   removeFromTempPlyList(track, plyListId){
 
     const playLists = [...this.state.tempPlyListsData];
-    let plyListTem = playLists.find((plyList) =>`${plyList.id}` === plyListId);
-    let tempTrack = plyListTem.tracks.find((temTrack) => temTrack.id === track.id);
-    const index = plyListTem.tracks.indexOf(tempTrack);
-    plyListTem.tracks.splice(index, 1);
 
+    let plyListTem = playLists.find((plyList) =>`${plyList.id}` === plyListId);
+
+    let tempTrack = plyListTem.tracks.find((temTrack) => temTrack.id === track.id);
+
+    const index = plyListTem.tracks.findIndex((song)=> song.id === tempTrack.id);
+    plyListTem.tracks.splice(index, 1);
 
     this.setState({tempPlyListsData:playLists});
   }
@@ -78,7 +75,6 @@ class LikeTrack extends React.Component {
 //CHECK FOR TRACK ON ANY PLAYLIST
       //   this.props.playListData.forEach((plyList)=> {
       //     const onPlyList = plyList.tracks.find((track) => track.id === this.props.trackData.id);
-      //   console.info(onPlyList);
       //   if(onPlyList){
       //     this.setState({onPlyList:true});
       //   }
@@ -120,12 +116,30 @@ class LikeTrack extends React.Component {
     }
   }
 
+  handelNewPlyList(track){
+
+    const plyListId = uuid();
+    this.props.storeAddNewPlyList(plyListId,track);
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:3000/playlist');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify({
+      plyListId: plyListId,
+      title: 'untitled',
+      newPlyList: false,
+      tracks: [track]
+    }))
+  }
+
   dropDownMode(){
     if(this.state.currentPage === 'explore'){
 
       return <div>
         <h4>add to playlist</h4>
-        <button onClick={()=>this.handelNewPlyList()}><NavLink to="/playlists">create playlist +</NavLink></button>
+        <button onClick={()=>this.handelNewPlyList(this.props.trackData)}><NavLink to="/playlists">create playlist +</NavLink></button>
       </div>;
 
     }
@@ -205,6 +219,14 @@ class LikeTrack extends React.Component {
 function mapDispatchToProps(dispatch) {
 
   return {
+    storeAddNewPlyList(plyListId,track){
+      dispatch({
+        type: 'ADD_NEW_PLAY_LIST',
+        track:track,
+        plyListId:plyListId
+      });
+    },
+
     updatePlyListsData(tempPlylists){
       dispatch({
         type: 'UPDATE_PLAY_LISTS_DATA',

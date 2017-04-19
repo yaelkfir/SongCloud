@@ -64,7 +64,7 @@ nav {
   position: relative;
 }
 //
-.search-input > input.search {
+.search-input form > input.search {
   height: 30px;
   width: 100%;
   color: white;
@@ -75,9 +75,9 @@ nav {
   border: 1px solid #fff9fc;
   border-radius: 30px;
 
-
 }
-.search-input > input.search::-webkit-input-placeholder{
+
+.search-input form > input.search::-webkit-input-placeholder{
   margin: 0;
   padding: 2px;
   font-size: 0.9rem;
@@ -85,6 +85,10 @@ nav {
   transform: none;
   text-transform: uppercase;
   font-weight: 300;
+}
+
+.search-input form{
+  width:100%;
 }
 
 .log-out {

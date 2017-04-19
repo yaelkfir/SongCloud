@@ -279,7 +279,8 @@ export default class Root extends React.Component {
   render() {
 
     return <div className="root-app-wraper">
-      <TopBar/>
+      <TopBar
+        {...this.props}/>
       <main>
         <Switch>
           <Route exact path="/" component={() => (<Redirect to="/explore/trance"/>)}/>
@@ -290,6 +291,7 @@ export default class Root extends React.Component {
                             {...props}/>
           }
           }/>
+          <Route exact path="/playlist" component={() => (<Redirect to="/playlists"/>)}/>
 
           <Route path="/playlists" render={ (props) => {
 

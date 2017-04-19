@@ -39,7 +39,7 @@ function Player(props) {
 }
 
 function mapStateToProps(stateData) {
-  console.info(stateData);
+
   return {
     currentTrack: stateData.currentTrack,
     playerVisible: stateData.playerVisible

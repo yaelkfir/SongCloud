@@ -26,7 +26,7 @@ function TrackList(props) {
 
     if (props.tracks.length > 0) {
 
-      let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : '';
+      let trackImg = track.artwork_url ? `url(${track.artwork_url.replace('large', 't300x300')})` : 'url(../assets/img-placeholder-track.png)';
       let trackplylist = props.playListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === track.id));
       onPlyList = (trackplylist) ? true : false;
 
@@ -60,6 +60,7 @@ function TrackList(props) {
         </li>
       )
     }
+
     else {
       return <p>empty</p>
     }
@@ -97,14 +98,23 @@ function TrackList(props) {
       </ul>
     }
     else {
-      return <ul className="track-list" key={uuid()}>
-        <li className="empty-playlist-container">empty!</li>
+      if(props.mode !== 'genres' && page === 'explore'){
+        return <div className='empty-search'>
+          <p>No songs were found for your search</p>
+        </div>
+      }
+      else {
+        return <ul className="track-list" key={uuid()}>
+          <li className="empty-playlist-container">empty!</li>
 
-      </ul>
+        </ul>
+      }
+
     }
   }
 
-  let exploreListTitle = (page === 'explore') ? <h3>Genre:{genre}</h3> : null;
+  let exploreSreachOrGenres = (props.mode === 'genres')?'Genre':'search';
+  let exploreListTitle = (page === 'explore') ? <h3>{exploreSreachOrGenres}:{genre}</h3> : null;
 
   return (
     <div className="play-list-container" key={uuid()}>

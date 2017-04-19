@@ -9,6 +9,8 @@ import React from 'react'
 import PlyListUl from '../playList/PlyList'
 import uuid from 'uuid';
 import { connect } from 'react-redux';
+import MDSpinner from "react-md-spinner";
+
 
 
 class Playlists extends React.Component {
@@ -18,6 +20,7 @@ class Playlists extends React.Component {
     this.state = {
       page: 'playList'
     };
+
   }
 
   createPlyListsUls(plyList,i) {
@@ -25,10 +28,6 @@ class Playlists extends React.Component {
     let isPlyListNew = plyList.newPlyList? true: false;
     let isInputVisible = plyList.newPlyList? true: false;
 
-    console.info(i);
-
-    let plyListNum = plyList.id;
-    console.info(plyListNum);
     return <div key={uuid()} ref={'scroll'+plyList.id} data={plyList.id}>
     <PlyListUl
 
@@ -58,19 +57,85 @@ class Playlists extends React.Component {
 
   }
 
-  render() {
-    return <div className="playlist-page">
-      <div className="side-bar">
-        <button className="next-btn" onClick={() => {this.props.handelNewPlyList()}}>add new playlist</button>
-        <ul className="play-lists-list">
-          {this.props.playListData.map((plyList,i) => this.createSideBar(plyList,i))}
-        </ul>
-      </div>
+  handelNewPlyList(){
 
-      <div className="playlist-container">
-        {this.props.playListData.map((plyList,i) => this.createPlyListsUls(plyList,i))}
+    const plyListId = uuid();
+    this.props.storeAddNewPlyList(plyListId);
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:3000/playlist');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify({
+      id: plyListId,
+      title: 'untitled',
+      newPlyList: false,
+      tracks: []
+    }))
+
+
+    /*
+
+     {
+     id: action.id,
+     title: '',
+     newPlyList: true,
+     tracks: []
+     }
+
+
+
+     function addSong() {
+     console.log('adding song...')
+     const xhr = new XMLHttpRequest();
+     xhr.open('POST', 'http://localhost:3000/playlists');
+
+     xhr.setRequestHeader('Content-Type', 'application/json');
+
+     xhr.addEventListener('load', () => {
+     document.querySelector('input[type=text]').value = ''
+     readData();
+     });
+
+     xhr.addEventListener('error', () => {
+     alert('problem!');
+     });
+
+     xhr.send(JSON.stringify({title: document.querySelector('input[type=text]').value}))
+
+     return false;
+     }
+     */
+  }
+
+  render() {
+
+    if(this.props.playListData){
+
+      return <div className="playlist-page">
+        <div className="side-bar">
+          <button className="next-btn" onClick={() => {this.handelNewPlyList()}}>add new playlist</button>
+          <ul className="play-lists-list">
+            {(this.props.playListData || []).map((plyList,i) => this.createSideBar(plyList,i))}
+          </ul>
+        </div>
+
+        <div className="playlist-container">
+          {(this.props.playListData || []).map((plyList,i) => this.createPlyListsUls(plyList,i))}
+        </div>
       </div>
-    </div>
+    }
+else {
+      return(
+        <div className="explore-container">
+          <CategoryList/>
+          <div className="spinner-wrapper">
+            <MDSpinner size={80} duration={2000} singleColor="#03a9f4"/>
+          </div>
+        </div>
+      )
+    }
   }
 
 }
@@ -84,13 +149,77 @@ function mapStateToProps(stateData) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handelNewPlyList(){
+    storeAddNewPlyList(plyListId){
       dispatch({
         type: 'ADD_NEW_PLAY_LIST',
-        track:false
+        track:false,
+        plyListId:plyListId
       });
     }
   }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Playlists);
+
+
+/*
+ render() {
+
+ switch (this.state.trackLoading) {
+ case 'loading':
+ return (
+ <div className="explore-container">
+ <CategoryList/>
+ <div className="spinner-wrapper">
+ <MDSpinner size={80} duration={2000} singleColor="#03a9f4"/>
+ </div>
+ </div>
+ );
+
+ case 'error':
+ return <div>Error!</div>;
+
+ case 'loaded':
+
+ return (
+
+ <div className="explore-container">
+ <CategoryList/>
+ <div className="over-flow-explore">
+ <div className="explore">
+ <TrackList tracks={this.state.tracks}
+
+ genre={this.props.match.params.genre}
+ page={this.state.page}
+ mode={this.state.mode}
+ trackTitleSlicer = { this.props.trackTitleSlicer }
+
+ />
+ <div className="pagination">
+ <button onClick={()=>{ this.prevPage() }}
+ disabled={this.state.offset === 0}>prev
+ </button>
+ <span className="page-num">page {this.state.offset/15 + 1}</span>
+ <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
+ </div>
+ </div>
+ </div>
+ </div>
+ )
+ }
+ }
+
+
+ xhr.addEventListener('load', () => {
+
+ this.setState({tracks: JSON.parse(xhr.responseText), trackLoading: 'loaded'});
+ });
+ xhr.addEventListener('error', () => {
+
+ this.setState({trackLoading: 'error'});
+ });
+ xhr.send();
+
+ }
+
+ */

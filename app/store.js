@@ -15,4 +15,23 @@ const reducer = combineReducers({
 
 const store = createStore(reducer);
 
+function GetPlayListXhr() {
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open('GET', `http://localhost:3000/a-file`);
+  xhr.addEventListener('load', () => {
+
+    store.dispatch({
+      type: 'SET_FIRST_PLY_LIST_DATA',
+      FirstPlyListsData:JSON.parse(xhr.responseText)
+    });
+  });
+
+  xhr.send();
+
+}
+
+GetPlayListXhr();
+
 export default store;
