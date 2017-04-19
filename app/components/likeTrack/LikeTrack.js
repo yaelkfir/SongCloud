@@ -173,7 +173,7 @@ class LikeTrack extends React.Component {
               {
                 this.props.playListData.map((plyList) => {
 
-                return<li key={plyList.id}>
+                return<li key={uuid()} data={plyList.id}>
                   <label htmlFor={plyList.id} className="checkbox">{this.props.trackTitleSlicer(plyList.title, 14)}
                     {this.isTrackOnPlyList(plyList)}
                     <span className="indicator"/>
