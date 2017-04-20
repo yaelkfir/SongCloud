@@ -69,7 +69,7 @@ class Playlists extends React.Component {
 
     xhr.send(JSON.stringify({
       id: plyListId,
-      title: 'untitled',
+      title: '',
       newPlyList: false,
       tracks: []
     }))

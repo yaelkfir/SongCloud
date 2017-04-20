@@ -66,12 +66,13 @@ export default function playListDataReducer(playListData = [], action) {
     }
     else {
         playLists.push({
-          id: action.id,
+          id: action.plyListId,
           title: '',
           newPlyList: true,
           tracks: [action.track]
         });
       }
+    console.info(playLists);
     return playLists;
   }
 

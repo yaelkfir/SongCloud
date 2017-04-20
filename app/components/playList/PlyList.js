@@ -46,12 +46,13 @@ class PlyListUl extends React.Component {
 
   handelTitleChange(event) {
 
-    let newTitle = event.target.value !== '' ? event.target.value : 'untitled';
-
+    let newTitle = event.target.value !=='' ? event.target.value : 'untitled';
+console.info('newTitle',newTitle);
      this.setState({
         inputValue: newTitle,
         title: newTitle
       });
+    console.info('title chnge', this.props.plyList);
 
       this.props.updatePlyListTitle(newTitle , this.props.plyList.id);
 
@@ -79,7 +80,7 @@ class PlyListUl extends React.Component {
 
   removePlyListHendler(plyListId) {
 ///playlist/remove'
-    this.props.removePlyList(plyListId)
+    this.props.removePlyList(plyListId);
 
     const xhr = new XMLHttpRequest();
 
@@ -107,7 +108,6 @@ class PlyListUl extends React.Component {
       ? <input type="text" value={this.state.inputValue} placeholder="untitled"
                ref={(input) => this.nameInput = input}
                onBlur={ (event) => {
-
                  this.props.setOldPlayList(this.props.plyList.id);
                  this.toggelDropDwonState();
                  this.handelTitleChange(event)
@@ -172,7 +172,6 @@ function mapDispatchToProps(dispatch) {
       }, 300);
 
     },
-
 
     updatePlyListTitle(title, plyListId){
       dispatch({

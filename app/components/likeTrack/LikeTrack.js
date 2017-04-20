@@ -119,6 +119,7 @@ class LikeTrack extends React.Component {
   handelNewPlyList(track){
 
     const plyListId = uuid();
+
     this.props.storeAddNewPlyList(plyListId,track);
 
     const xhr = new XMLHttpRequest();
@@ -127,8 +128,8 @@ class LikeTrack extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify({
-      plyListId: plyListId,
-      title: 'untitled',
+      id: plyListId,
+      title: '',
       newPlyList: false,
       tracks: [track]
     }))
@@ -220,6 +221,7 @@ function mapDispatchToProps(dispatch) {
 
   return {
     storeAddNewPlyList(plyListId,track){
+      console.info(plyListId);
       dispatch({
         type: 'ADD_NEW_PLAY_LIST',
         track:track,
@@ -228,6 +230,7 @@ function mapDispatchToProps(dispatch) {
     },
 
     updatePlyListsData(tempPlylists){
+      console.info(tempPlylists);
       dispatch({
         type: 'UPDATE_PLAY_LISTS_DATA',
         tempPlyListsData:tempPlylists
