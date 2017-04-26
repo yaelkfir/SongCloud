@@ -26,12 +26,14 @@
 }
 
 .side-bar {
-  flex: 0 0 200px;
+  flex: 0 0 230px;
   border-right: 1px solid $outlineGray;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto ;
+  overflow-x: hidden;
 }
 
 .side-bar > button {
@@ -42,14 +44,22 @@
   width: 180px;
   border: none;
   height: 30px;
+  min-height: 30px;
   color: white;
   border-radius:2px ;
+  cursor: pointer;
 }
+
+.side-bar p {
+cursor: pointer;
+}
+
 
 .play-lists-list {
   width: 180px;
   padding-top: 20px;
   border-top: 1px solid $outlineGray;
+  text-transform: capitalize;
 }
 
 .play-lists-list li{
@@ -63,6 +73,7 @@ height: 30px;
   margin-top: 20px;
   border: 1px solid $outlineGray;
   height: 64px;
+
 }
 
 .playlist-container .list-title h3 {
@@ -71,6 +82,8 @@ height: 30px;
   font-size: 1.4rem;
   font-weight: 100;
   display: inline-block;
+  cursor: pointer;
+
 }
 
 .playlist-container .list-title .number-tracks {

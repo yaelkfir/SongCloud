@@ -37,6 +37,7 @@ class Playlists extends React.Component {
       trackTitleSlicer={ this.props.trackTitleSlicer }
       inputShowing={isInputVisible}
       newPlyList={isPlyListNew}
+      player={this.props.player}
 
     />
     </div>
@@ -74,48 +75,14 @@ class Playlists extends React.Component {
       tracks: []
     }))
 
-
-    /*
-
-     {
-     id: action.id,
-     title: '',
-     newPlyList: true,
-     tracks: []
-     }
-
-
-
-     function addSong() {
-     console.log('adding song...')
-     const xhr = new XMLHttpRequest();
-     xhr.open('POST', 'http://localhost:3000/playlists');
-
-     xhr.setRequestHeader('Content-Type', 'application/json');
-
-     xhr.addEventListener('load', () => {
-     document.querySelector('input[type=text]').value = ''
-     readData();
-     });
-
-     xhr.addEventListener('error', () => {
-     alert('problem!');
-     });
-
-     xhr.send(JSON.stringify({title: document.querySelector('input[type=text]').value}))
-
-     return false;
-     }
-     */
   }
 
   render() {
-
     if(this.props.playListData){
 
       return <div className="playlist-page">
         <div className="side-bar">
-          <button className="next-btn" onClick={() => {this.handelNewPlyList()}}>add new playlist</button>
+          <button className="next-btn btn-blue" onClick={() => {this.handelNewPlyList()}}>add new playlist</button>
           <ul className="play-lists-list">
             {(this.props.playListData || []).map((plyList,i) => this.createSideBar(plyList,i))}
           </ul>

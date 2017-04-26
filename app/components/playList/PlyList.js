@@ -2,8 +2,7 @@ import React from 'react'
 import TrackList from '../trackList/TrackList'
 import {connect} from 'react-redux';
 
-
-class PlyListUl extends React.Component {
+class PlyList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,11 +14,13 @@ class PlyListUl extends React.Component {
       newPlyList: null,
     };
 
-    this.toggelDropDwonState = this.toggelDropDwonState.bind(this);
+    this.toggleInputState = this.toggleInputState.bind(this);
 
   }
 
   componentDidUpdate() {
+    console.info('@', this.nameInput);
+
     if (this.state.inputShowing) {
       this.nameInput.focus();
     }
@@ -30,13 +31,12 @@ class PlyListUl extends React.Component {
     const inputShowing = this.props.inputShowing;
     const inputValue = this.props.plyList.title ? this.props.plyList.title : '';
     const title = this.props.plyList.title ? this.props.plyList.title : 'untitled';
-    const newPlyList = this.props.inputShowing;
 
     this.setState({
       inputShowing: inputShowing,
       inputValue: inputValue,
       title: title,
-      newPlyList: newPlyList
+      newPlyList: inputShowing
     });
 
     if (this.state.inputShowing) {
@@ -44,18 +44,19 @@ class PlyListUl extends React.Component {
     }
   }
 
+  //playlist title & input
   handelTitleChange(event) {
 
-    let newTitle = event.target.value !=='' ? event.target.value : 'untitled';
-console.info('newTitle',newTitle);
-     this.setState({
-        inputValue: newTitle,
-        title: newTitle
-      });
-    console.info('title chnge', this.props.plyList);
+    let newTitle = event.target.value !== '' ? event.target.value : 'untitled';
 
-      this.props.updatePlyListTitle(newTitle , this.props.plyList.id);
+    this.setState({
+      inputValue: newTitle,
+      title: newTitle
+    });
 
+    this.props.updatePlyListTitle(newTitle, this.props.plyList.id);
+
+    //xhr req
     const xhr = new XMLHttpRequest();
 
     xhr.open('POST', 'http://localhost:3000/playlist/updatetitle');
@@ -73,13 +74,22 @@ console.info('newTitle',newTitle);
   inputKeyDown(event) {
     if (event.keyCode === 13) {
       this.props.setOldPlayList(this.props.plyList.id);
-      this.toggelDropDwonState();
+      this.toggleInputState();
       this.handelTitleChange(event)
     }
   }
 
-  removePlyListHendler(plyListId) {
-///playlist/remove'
+  toggleInputState() {
+    if(this.state.inputShowing){
+      this.setState({inputShowing: false});
+    }
+    else{
+      this.setState({inputShowing: true});
+    }
+  }
+
+  //remove playlist
+  removePlyListHandler(plyListId) {
     this.props.removePlyList(plyListId);
 
     const xhr = new XMLHttpRequest();
@@ -96,20 +106,16 @@ console.info('newTitle',newTitle);
 
   }
 
-
-  toggelDropDwonState() {
-    (this.state.inputShowing) ? this.setState({inputShowing: false}) : this.setState({inputShowing: true});
-  }
-
+  //render
   render() {
 
 
-    const plyListinput = (this.state.inputShowing)
+    const plyListInput = (this.state.inputShowing)
       ? <input type="text" value={this.state.inputValue} placeholder="untitled"
                ref={(input) => this.nameInput = input}
                onBlur={ (event) => {
                  this.props.setOldPlayList(this.props.plyList.id);
-                 this.toggelDropDwonState();
+                 this.toggleInputState();
                  this.handelTitleChange(event)
                } }
                onKeyDown={(event) => this.inputKeyDown(event)}
@@ -119,7 +125,7 @@ console.info('newTitle',newTitle);
 
     const plyListTitle = (!this.state.inputShowing)
       ? <div>
-        <h3 onClick={(event) => this.toggelDropDwonState(event)}>{this.state.title}</h3>
+        <h3 onClick={(event) => this.toggleInputState(event)}>{this.state.title}</h3>
         <div className="number-badge-container">
           <span className="number-badge">{this.props.plyList.tracks.length}</span>
         </div>
@@ -132,11 +138,11 @@ console.info('newTitle',newTitle);
       <div className="list-title">
         <div>
 
-          {plyListinput}
+          {plyListInput}
           {plyListTitle}
 
           <button className="delete-playlist-btn" onClick={() => {
-            this.removePlyListHendler(this.props.plyList.id)
+            this.removePlyListHandler(this.props.plyList.id)
           }}>delete
           </button>
         </div>
@@ -150,7 +156,6 @@ console.info('newTitle',newTitle);
     </div>
   }
 }
-
 
 function mapStateToProps(stateData) {
 
@@ -191,4 +196,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlyListUl);
+export default connect(mapStateToProps, mapDispatchToProps)(PlyList);

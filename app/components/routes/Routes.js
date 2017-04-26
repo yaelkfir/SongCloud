@@ -8,6 +8,7 @@ import Signup from '../signUp/Signup'
 import Signin from '../signIn/Signin'
 import Root from '../root/Root'
 
+
 import {
   BrowserRouter,
   Route,
@@ -24,6 +25,7 @@ from 'react-router-dom';
             <Route exact path="/signin" component={ Signin }/>
             <Route exact path="/signup" component={ Signup }/>
             <Route path="/" component={ Root }/>
+
           </Switch>
         </BrowserRouter>
       );

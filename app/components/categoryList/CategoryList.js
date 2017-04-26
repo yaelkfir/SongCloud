@@ -15,6 +15,8 @@ export default function CategoryList (){
     <li className="category"><NavLink to="/explore/trance" activeClassName="selected-category">trance</NavLink></li>
     <li className="category"><NavLink to="/explore/house" activeClassName="selected-category">house</NavLink></li>
     <li className="category"><NavLink to="/explore/dubstep" activeClassName="selected-category">dubstep</NavLink></li>
+    <li className="category"><NavLink to="/explore/electronic" activeClassName="selected-category">electronic</NavLink></li>
+    <li className="category"><NavLink to="/explore/hip-hop" activeClassName="selected-category">hip hop</NavLink></li>
   </ul>
 }
 

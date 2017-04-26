@@ -1,12 +1,9 @@
 import React from 'react'
-// import TrackDrop from './TrackDrop'
 import {
   NavLink
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store from '../../store'
 import uuid from 'uuid';
-
 
 class LikeTrack extends React.Component {
   constructor(props){
@@ -22,7 +19,7 @@ class LikeTrack extends React.Component {
     };
 
     this.isTrackOnPlyList = this.isTrackOnPlyList.bind(this);
-
+    this.JSONUpdatePlyListsData=this.JSONUpdatePlyListsData.bind(this);
   }
 
   componentDidMount(){
@@ -67,37 +64,43 @@ class LikeTrack extends React.Component {
 
         this.setState({onPlyList:true});
 
-        // this.props.addTrackToPlyList(this.props.trackData, target.id);
         this.addTrackToTempList(this.props.trackData, target.id)
       }
 
       else {
-//CHECK FOR TRACK ON ANY PLAYLIST
-      //   this.props.playListData.forEach((plyList)=> {
-      //     const onPlyList = plyList.tracks.find((track) => track.id === this.props.trackData.id);
-      //   if(onPlyList){
-      //     this.setState({onPlyList:true});
-      //   }
-      //   else {
-      //     this.setState({onPlyList:false});
-      //   }
-      // });
+        this.removeFromTempPlyList(this.props.trackData, target.id);
 
-        // setTimeout(()=>{ this.props.removeFromPlyList(this.props.trackData,target.id) },500)
+        const trackOnPlyList = this.state.tempPlyListsData.find((playList) => playList.tracks.find((temTrack)=> this.props.trackData.id === temTrack.id ));
 
-        this.removeFromTempPlyList(this.props.trackData, target.id)
+        if(trackOnPlyList){
+         this.setState({onPlyList:true});
 
+        }
+        else {
+          this.setState({onPlyList:false});
+        }
       }
     }
   }
 
-  toggelDropDwonState() {
+  JSONUpdatePlyListsData(){
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:3000/playlist/updateplylistfromdropdown');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(this.state.tempPlyListsData))
+  }
+
+  toggleDropDownState() {
 
     this.setState({currentPage:this.props.page}, () => {
-
+console.info('toggel');
       if(this.state.openedDropDown){
         this.setState({openedDropDown: false});
         this.props.updatePlyListsData(this.state.tempPlyListsData);
+        this.JSONUpdatePlyListsData();
+
       }
         else {this.setState({openedDropDown: true});
       }
@@ -154,11 +157,11 @@ class LikeTrack extends React.Component {
 
   heartIconMode(){
     if(!this.state.onPlyList){
-      return <span className="fa fa-heart-o blue"  aria-hidden="true" onClick={ () => this.toggelDropDwonState() }/>
+      return <span className="fa fa-heart-o blue"  aria-hidden="true" onClick={ () => this.toggleDropDownState() }/>
     }
 
     else {
-      return <span className="fa fa-heart"  aria-hidden="true" onClick={ () => this.toggelDropDwonState() }/>
+      return <span className="fa fa-heart"  aria-hidden="true" onClick={ () => this.toggleDropDownState() }/>
     }
   }
 
@@ -186,7 +189,7 @@ class LikeTrack extends React.Component {
             </ul>
           </div>
         </div>
-        <div className="click-background" onClick={ () => this.toggelDropDwonState() }/>
+        <div className="click-background" onClick={ () => this.toggleDropDownState() }/>
       </div>
     )
   };
@@ -196,14 +199,14 @@ class LikeTrack extends React.Component {
       if(!this.state.onPlyList){
         return (
           <div className="like-drop-down">
-            <span className="fa fa-heart-o blue"  aria-hidden="true" onClick={ () => this.toggelDropDwonState() }/>
+            <span className="fa fa-heart-o blue"  aria-hidden="true" onClick={ () => this.toggleDropDownState() }/>
           </div>
         )
       }
       if(this.state.onPlyList){
 
        return <div className="like-drop-down">
-        <span className="fa fa-heart"  aria-hidden="true" onClick={ () => this.toggelDropDwonState() }/>
+        <span className="fa fa-heart"  aria-hidden="true" onClick={ () => this.toggleDropDownState() }/>
         </div>
       }
     }
@@ -214,14 +217,11 @@ class LikeTrack extends React.Component {
     }
 }
 
-/*
- import { connect } from 'react-redux';
- */
 function mapDispatchToProps(dispatch) {
 
   return {
     storeAddNewPlyList(plyListId,track){
-      console.info(plyListId);
+
       dispatch({
         type: 'ADD_NEW_PLAY_LIST',
         track:track,
@@ -230,7 +230,7 @@ function mapDispatchToProps(dispatch) {
     },
 
     updatePlyListsData(tempPlylists){
-      console.info(tempPlylists);
+      console.info('tempPlylists',tempPlylists);
       dispatch({
         type: 'UPDATE_PLAY_LISTS_DATA',
         tempPlyListsData:tempPlylists
@@ -253,13 +253,11 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 function mapStateToProps(stateData) {
 
   return {
     playListData: stateData.playListData,
   }
 }
-
 
 export default connect(mapStateToProps ,mapDispatchToProps)(LikeTrack);

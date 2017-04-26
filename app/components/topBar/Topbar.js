@@ -19,10 +19,14 @@ export default class Topbar extends React.Component {
  searchSumbmit(e){
   e.preventDefault();
 
-  const search = this.searchInput.value;
 
-   this.searchInput.value = '';
-   this.props.history.push(`/explore/${search}?search=true`);
+    const search = this.searchInput.value;
+console.info(this.searchInput.value);
+if(search.length>0){
+  this.searchInput.value = '';
+  this.props.history.push(`/explore/${search}?search=true`);
+}
+
   }
 
   render() {
@@ -49,7 +53,7 @@ export default class Topbar extends React.Component {
         <div className="right-side-header">
 
           <div className="search-input">
-            <span className="fa fa-search" aria-hidden="true"/>
+            <span className="fa fa-search" aria-hidden="true" onClick={(e)=> this.searchSumbmit(e)}/>
             <form onSubmit={(e) => this.searchSumbmit(e)}>
               <input
                 ref={(ref) => this.searchInput = ref}

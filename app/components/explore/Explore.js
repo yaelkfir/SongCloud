@@ -114,6 +114,30 @@ export default class Explore extends React.Component {
         return <div>Error!</div>;
 
       case 'loaded':
+        let pagination;
+        if(this.state.tracks < 15 || this.state.tracks === undefined){
+          pagination =  null;
+        }
+        else {
+          let preBtnClass;
+          if(this.state.offset === 0){
+            preBtnClass = '';
+          }
+          else {
+            preBtnClass = "next-btn"
+          }
+
+          pagination =  <div className="pagination">
+            <button
+              className={preBtnClass}
+              onClick={()=>{ this.prevPage() }}
+                    disabled={this.state.offset === 0}>prev
+            </button>
+            <span className="page-num">page {this.state.offset/15 + 1}</span>
+            <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
+          </div>;
+        }
+
 
         return (
 
@@ -128,13 +152,7 @@ export default class Explore extends React.Component {
                            trackTitleSlicer = { this.props.trackTitleSlicer }
 
                 />
-                <div className="pagination">
-                  <button onClick={()=>{ this.prevPage() }}
-                          disabled={this.state.offset === 0}>prev
-                  </button>
-                  <span className="page-num">page {this.state.offset/15 + 1}</span>
-                  <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
-                </div>
+                {pagination}
               </div>
             </div>
           </div>

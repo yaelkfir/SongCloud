@@ -91,30 +91,3 @@ export default function playListDataReducer(playListData = [], action) {
 
   return playListData;
   }
-
-/*
-
- addNewPlyList(track) {
- const playLists = [...this.state.plyListData];
- console.info(track);
- if(track === undefined) {
- playLists.push({
- id: uuid(),
- title: '',
- newPlyList: true,
- tracks: []
- });
- }
- else {
-
- playLists.push({
- id: uuid(),
- title: '',
- newPlyList: true,
- tracks: [track]
- });
- }
-
- this.setState({plyListData: playLists});
- }
- */

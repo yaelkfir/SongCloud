@@ -99,6 +99,39 @@ app.post('/playlist/remove', (req, res) => {
    }
    */
 });
+
+app.post('/playlist/updateplylistfromdropdown', (req, res) => {
+
+  const data = fs.readFileSync(__dirname + '/playlist.json');
+  const playlists = JSON.parse(data);
+  console.info('before',playlists);
+
+  playlists.splice(0,playlists.length);
+  console.info('after slice',playlists);
+
+  req.body.forEach((plylist)=>{playlists.push(plylist)});
+
+console.info('after',playlists);
+console.info(req.body);
+  fs.writeFileSync(__dirname + '/playlist.json', JSON.stringify(playlists));
+  res.send('OK')
+
+  /*
+   if (action.type === 'REMOVE_LIST') {
+
+   console.info('work');
+   const playLists = [...playListData];
+   let plyListTem = playLists.find((plyList) =>plyList.id === action.plyListId);
+   console.info('remove',action.plyListId,plyListTem);
+   const index = playLists.indexOf(plyListTem);
+   playLists.splice(index, 1);
+
+
+   return playLists;
+   }
+   */
+});
+
 /*
 
  if (action.type === 'UPDATE_PLAY_LIST_TITLE') {
