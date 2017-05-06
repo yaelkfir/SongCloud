@@ -1,6 +1,3 @@
-/**
- * Created by yaelo on 3/28/17.
- */
 
 import './top-bar.scss'
 import React from 'react'
@@ -65,9 +62,9 @@ if(search.length>0){
 
           </div>
 
-          <NavLink to="/Signup" className="log-out">
+          <div className="log-out">
             <button type="button" className="log-out">logout</button>
-          </NavLink>
+          </div>
 
         </div>
 

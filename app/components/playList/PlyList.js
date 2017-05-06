@@ -106,9 +106,27 @@ class PlyList extends React.Component {
 
   }
 
+  msToTime(duration) {
+  const seconds = parseInt((duration / 1000) % 60);
+  const minutes = parseInt((duration / (1000 * 60)) % 60);
+
+  return (((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds));
+}
+
   //render
   render() {
 
+/*
+
+for playlist duration
+ let plyListDuration = 0;
+
+ this.props.plyList.tracks.forEach((track)=>{ console.info(this.msToTime(track.duration));
+ plyListDuration = track.duration + plyListDuration;
+ });
+
+ console.info('plyListDuration',this.msToTime(plyListDuration));
+*/
 
     const plyListInput = (this.state.inputShowing)
       ? <input type="text" value={this.state.inputValue} placeholder="untitled"
@@ -126,6 +144,7 @@ class PlyList extends React.Component {
     const plyListTitle = (!this.state.inputShowing)
       ? <div>
         <h3 onClick={(event) => this.toggleInputState(event)}>{this.state.title}</h3>
+        {/*<p>{this.msToTime(plyListDuration)}</p>*/}
         <div className="number-badge-container">
           <span className="number-badge">{this.props.plyList.tracks.length}</span>
         </div>

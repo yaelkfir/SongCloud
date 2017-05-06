@@ -21,7 +21,6 @@ class Track extends React.Component {
     return (((minutes < 10) ? "0" + minutes : minutes) + ":" + ((seconds < 10) ? "0" + seconds : seconds));
   }
 
-
   componentDidMount() {
 
     if (this.props.track.id === this.props.currentTrack.id) {
@@ -34,28 +33,28 @@ class Track extends React.Component {
   }
 
   setPlaying(e) {
-console.info('track', e.target);
-    if(this.props.audioPlayerMode === 'none'){
+
+    if (this.props.audioPlayerMode === 'none') {
       this.props.setAudioMode('play');
+      this.props.setTrackList(this.props.tracks);
     }
 
-    if(this.props.audioPlayerMode === 'play') {
+    if (this.props.audioPlayerMode === 'play') {
       this.props.setAudioMode('pause');
     }
 
-    if(this.props.audioPlayerMode === 'pause') {
+    if (this.props.audioPlayerMode === 'pause') {
       this.props.setAudioMode('play');
+      this.props.setTrackList(this.props.tracks);
     }
+
   }
 
   render() {
 
-    // console.info('playingMode',this.state);
-
-
     let trackImg = this.props.track.artwork_url ? `url(${this.props.track.artwork_url.replace('large', 't300x300')})` : 'url(../assets/img-placeholder-track.png)';
-    let trackplylist = this.props.playListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === this.props.track.id));
-    let onPlyList = (trackplylist) ? true : false;
+    let trackPlyList = this.props.playListData.find((plylist) => plylist.tracks.find((plyListTrack) => plyListTrack.id === this.props.track.id));
+    let onPlyList = (trackPlyList) ? true : false;
     let imgClass;
     if (this.state.playing === true) {
       if (this.props.audioPlayerMode === 'play') {
@@ -77,7 +76,7 @@ console.info('track', e.target);
                data={this.props.track.id + 'img'}
                style={{'backgroundImage': trackImg}}
                onClick={(e) => {
-                 this.props.handelsongclick(this.props.track);
+                 this.props.handelSongClick(this.props.track);
                  this.setPlaying(e);
                }}
           />
@@ -102,11 +101,17 @@ console.info('track', e.target);
   }
 }
 
-
 function mapDispatchToProps(dispatch) {
 
   return {
-    handelsongclick(track){
+    setTrackList(tracks){
+      dispatch({
+        type: 'SET_TRACKS_TO_PLAYER',
+        tracks: tracks,
+      });
+    },
+
+    handelSongClick(track){
       dispatch({
         type: 'UPDATE_CURRENT_TRACK',
         track: track
@@ -117,7 +122,7 @@ function mapDispatchToProps(dispatch) {
       })
     },
     setAudioMode(mode){
-      console.info('mode',mode);
+
       dispatch({
         type: 'SET_AUDIO_PLAYER_MODE',
         mode: mode
@@ -125,7 +130,6 @@ function mapDispatchToProps(dispatch) {
     }
   }
 }
-
 
 function mapStateToProps(stateData) {
 

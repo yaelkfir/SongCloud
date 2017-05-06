@@ -4,8 +4,6 @@
 
 import React from 'react'
 
-import Signup from '../signUp/Signup'
-import Signin from '../signIn/Signin'
 import Root from '../root/Root'
 
 
@@ -22,10 +20,7 @@ from 'react-router-dom';
       return (
         <BrowserRouter>
           <Switch>
-            <Route exact path="/signin" component={ Signin }/>
-            <Route exact path="/signup" component={ Signup }/>
             <Route path="/" component={ Root }/>
-
           </Switch>
         </BrowserRouter>
       );

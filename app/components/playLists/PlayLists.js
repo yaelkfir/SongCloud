@@ -44,16 +44,17 @@ class Playlists extends React.Component {
   }
 
   scrollMadaFucker(event){
-    this.refs[event.target.id].scrollIntoView({ behavior: 'smooth' });
+
+    this.refs[event.target.id].scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   }
 
   createSideBar(plyList) {
-//nav list
-    const plyListTitel = this.props.trackTitleSlicer(plyList.title, 25);
+
+    const plyListTitle = this.props.trackTitleSlicer(plyList.title, 25);
 
     return <li key={uuid()} id={'scroll'+ plyList.id} onClick={(event)=> this.scrollMadaFucker(event)}>
-      <p id={'scroll'+ plyList.id} >{plyListTitel}</p>
+      <p id={'scroll'+ plyList.id} >{plyListTitle}</p>
     </li>
 
   }
@@ -74,10 +75,12 @@ class Playlists extends React.Component {
       newPlyList: false,
       tracks: []
     }))
-
   }
 
   render() {
+
+    const playListContainerClass = (this.props.playerVisible)?'playlist-container player-on' :'playlist-container' ;
+
     if(this.props.playListData){
 
       return <div className="playlist-page">
@@ -88,7 +91,7 @@ class Playlists extends React.Component {
           </ul>
         </div>
 
-        <div className="playlist-container">
+        <div className={playListContainerClass}>
           {(this.props.playListData || []).map((plyList,i) => this.createPlyListsUls(plyList,i))}
         </div>
       </div>
@@ -110,6 +113,7 @@ else {
 function mapStateToProps(stateData) {
 
   return {
+    playerVisible: stateData.playerVisible,
     playListData: stateData.playListData,
   }
 }
@@ -129,64 +133,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps,mapDispatchToProps)(Playlists);
 
 
-/*
- render() {
 
- switch (this.state.trackLoading) {
- case 'loading':
- return (
- <div className="explore-container">
- <CategoryList/>
- <div className="spinner-wrapper">
- <MDSpinner size={80} duration={2000} singleColor="#03a9f4"/>
- </div>
- </div>
- );
-
- case 'error':
- return <div>Error!</div>;
-
- case 'loaded':
-
- return (
-
- <div className="explore-container">
- <CategoryList/>
- <div className="over-flow-explore">
- <div className="explore">
- <TrackList tracks={this.state.tracks}
-
- genre={this.props.match.params.genre}
- page={this.state.page}
- mode={this.state.mode}
- trackTitleSlicer = { this.props.trackTitleSlicer }
-
- />
- <div className="pagination">
- <button onClick={()=>{ this.prevPage() }}
- disabled={this.state.offset === 0}>prev
- </button>
- <span className="page-num">page {this.state.offset/15 + 1}</span>
- <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
- </div>
- </div>
- </div>
- </div>
- )
- }
- }
-
-
- xhr.addEventListener('load', () => {
-
- this.setState({tracks: JSON.parse(xhr.responseText), trackLoading: 'loaded'});
- });
- xhr.addEventListener('error', () => {
-
- this.setState({trackLoading: 'error'});
- });
- xhr.send();
-
- }
-
- */

@@ -16,8 +16,7 @@ class Player extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.info('componentDidUpdate');
-    console.info('prevProps', prevProps);
+
     if (prevProps.currentTrack.id === this.props.currentTrack.id) {
       if (this.audioPlayer) {
         if (this.props.audioPlayerMode === 'none' || this.props.audioPlayerMode === 'play') {
@@ -35,20 +34,31 @@ class Player extends React.Component {
       ref={(ref) => this.audioPlayer = ref}
       controls="controls"
       src={ track }
-      onPlay={(e) => this.props.setAudioMode('play')}
+      onPlay={(e) => {this.props.setAudioMode('play');}}
+
       onPause={(e) => this.props.setAudioMode('pause')}
+      onEnded={(e)=> {
+
+        const currentIndex = this.props.tracksToPlay.findIndex((track)=> track.id === this.props.currentTrack.id);
+
+        if(this.props.tracksToPlay[currentIndex + 1] !== undefined) {
+          this.props.handelSongClick(this.props.tracksToPlay[currentIndex + 1])
+        }
+
+      }}
       autoPlay
     />
   }
+/*
+ document.getElementById('audio').addEventListener("ended",function() {
 
+ */
   render() {
-
     let trackImg = this.props.currentTrack.artwork_url ? this.props.currentTrack.artwork_url.replace('large', 't300x300') : '';
     const trackUrl = `${this.props.currentTrack.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;
     const trackTitel = this.props.currentTrack.title ? this.trackTitleSlicer(this.props.currentTrack.title, 50) : 'song';
 
     if (this.props.playerVisible) {
-      console.info('audioPlayer', this.audioPlayer);
 
       return (
         <div className="player">
@@ -73,6 +83,7 @@ class Player extends React.Component {
 function mapStateToProps(stateData) {
 
   return {
+    tracksToPlay: stateData.tracksToPlay,
     currentTrack: stateData.currentTrack,
     playerVisible: stateData.playerVisible,
     audioPlayerMode: stateData.audioPlayerMode
@@ -83,7 +94,7 @@ function mapDispatchToProps(dispatch) {
 
   return {
 
-    handelsongclick(track){
+    handelSongClick(track){
       dispatch({
         type: 'UPDATE_CURRENT_TRACK',
         track: track
@@ -95,7 +106,7 @@ function mapDispatchToProps(dispatch) {
 
     },
     setAudioMode(mode){
-      console.info('mode', mode);
+
       dispatch({
         type: 'SET_AUDIO_PLAYER_MODE',
         mode: mode

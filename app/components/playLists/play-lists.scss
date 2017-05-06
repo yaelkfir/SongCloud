@@ -22,7 +22,11 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  padding-bottom: 60px;
+}
+
+.playlist-container.player-on{
+  height: calc(100% - 60px);
+  padding-bottom: 0;
 }
 
 .side-bar {

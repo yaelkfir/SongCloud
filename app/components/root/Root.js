@@ -1,7 +1,6 @@
 import './root.scss'
 
 import React from 'react'
-import uuid from 'uuid';
 
 import {
   Route,
@@ -9,8 +8,6 @@ import {
   Redirect
 }
   from 'react-router-dom';
-
-import store from '../../store'
 
 
 import Player from '../player/Player'
@@ -40,33 +37,32 @@ export default class Root extends React.Component {
 /*
  */
   render() {
-    /*
-     var data = sessionStorage.getItem('key');
-     const playerData = data = sessionStorage.getItem('player');
-     */
 
-    return <div className="root-app-wraper">
-      <TopBar
-        {...this.props}/>
+    return <div className="root-app-wrapper">
+
+      <TopBar {...this.props} />
       <main>
+
         <Switch>
+
           <Route exact path="/" component={() => (<Redirect to="/explore/trance"/>)}/>
+
           <Route exact path="/explore" component={() => (<Redirect to="/explore/trance"/>)}/>
           <Route path="/explore/:genre" render={(props) => {
             return <Explore
                             trackTitleSlicer={ this.trackTitleSlicer }
                             {...props}/>
-          }
-          }/>
-          <Route exact path="/playlist" component={() => (<Redirect to="/playlists"/>)}/>
+          }}/>
 
+          <Route exact path="/playlist" component={() => (<Redirect to="/playlists"/>)}/>
           <Route path="/playlists" render={ (props) => {
 
             return <PlayLists
               trackTitleSlicer={ this.trackTitleSlicer }
               {...props}/>
-          }
-          }/>
+          }}/>
+
+          <Route path='*' component={()=> <Redirect to="/explore/hip-hop"/> }/>
         </Switch>
       </main>
       <Player/>

@@ -7,8 +7,11 @@ import currentTrack from './reducers/current-track';
 import playerVisible from './reducers/player-visible';
 import playListData from './reducers/plyList-data';
 import audioPlayerMode from './reducers/audio-player-mode';
+import tracksToPlay from './reducers/track-list';
 
 const reducer = combineReducers({
+
+  tracksToPlay,
   currentTrack,
   playerVisible,
   playListData,

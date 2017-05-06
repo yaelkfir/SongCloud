@@ -1,13 +1,12 @@
-
 import './explore.scss'
 
 import React from 'react';
 import MDSpinner from "react-md-spinner";
 import TrackList from '../trackList/TrackList'
 import CategoryList from '../categoryList/CategoryList'
+import {connect} from 'react-redux';
 
-
-export default class Explore extends React.Component {
+class Explore extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,26 +15,40 @@ export default class Explore extends React.Component {
       tracks: [],
       trackLoading: 'loading',
       offset: 0,
-      limit: 15,
+      limit: 30,
       page: 'explore',
-      mode:null
+      mode: null
     };
+
   }
 
-  //pagination
-  prevPage() {
-    this.setState({
-      offset: this.state.offset - this.state.limit
-    });
+  componentDidMount() {
+    this.GetXhr();
   }
 
-  nextPage() {
-    this.setState({
-      offset: this.state.offset + this.state.limit
-    });
+  componentDidUpdate(prevProps, prevState) {
+
+    const prevGenre = prevProps.match.params.genre;
+    const targetGenre = this.props.match.params.genre;
+
+    if (prevGenre !== targetGenre && prevState.offset === this.state.offset) {
+
+      this.setState({
+        offset: 0,
+        trackLoading: 'loading'
+      }, () => {
+        this.GetXhr();
+      })
+    }
+
+    if (prevState.offset !== this.state.offset && prevGenre === targetGenre) {
+
+      this.GetXhr();
+    }
   }
 
-  //get tracks from internet
+  //get tracks
+
   GetXhr() {
 
     let limit = this.state.limit;
@@ -45,11 +58,11 @@ export default class Explore extends React.Component {
     const searchParams = new URLSearchParams(this.props.location.search);
     const searchTarget = searchParams.get('search') ? 'q' : 'tags';
 
-    if(searchTarget === 'q'){
+    if (searchTarget === 'q') {
       this.setState({mode: 'search'});
     }
 
-    if(searchTarget === 'tags') {
+    if (searchTarget === 'tags') {
       this.setState({mode: 'genres'});
     }
 
@@ -68,36 +81,63 @@ export default class Explore extends React.Component {
 
   }
 
-  //react framework functions
 
-  componentDidMount() {
-    this.GetXhr();
+  //pagination
 
+  goToPrevPage() {
+    this.setState({
+      offset: this.state.offset - this.state.limit
+    });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  goToNextPage() {
 
-    const prevGenre = prevProps.match.params.genre;
-    const targetGenre = this.props.match.params.genre;
+    this.setState({
+      offset: this.state.offset + this.state.limit
+    });
+  }
 
-    if (prevGenre !== targetGenre && prevState.offset === this.state.offset) {
+  pagination() {
 
-      this.setState({offset: 0,
-        trackLoading:'loading'
-      } ,() => {
-        this.GetXhr();
-      })
+
+    const preBtnClass = (this.state.offset === 0) ? '' : 'next-btn';
+    const nextBtnClass = (this.state.tracks.length < 28 || this.state.tracks === undefined) ? '' : 'next-btn';
+
+    const paginationElm = <div className="pagination">
+      <button
+        className={ preBtnClass }
+        onClick={() => {
+          this.goToPrevPage();
+        }}
+        ref={(ref) => {
+          this.prevBtnElm = ref;
+        }}
+        disabled={ this.state.offset === 0 }> prev
+      </button>
+      <span className="page-num">page { this.state.offset / 30 + 1 }</span>
+      <button className={ nextBtnClass }
+              disabled={ this.state.tracks.length < 28 }
+              onClick={() => {
+                this.goToNextPage();
+              }
+              }>next
+      </button>
+    </div>;
+
+    //no search results
+    if (this.state.mode === 'search' && this.state.tracks.length === 0) {
+      return null;
     }
 
-    if(prevState.offset !== this.state.offset && prevGenre === targetGenre){
+    else {
 
-      this.GetXhr();
+      return paginationElm;
+
     }
   }
+
 
   render() {
-
-
 
     switch (this.state.trackLoading) {
       case 'loading':
@@ -114,45 +154,23 @@ export default class Explore extends React.Component {
         return <div>Error!</div>;
 
       case 'loaded':
-        let pagination;
-        if(this.state.tracks < 15 || this.state.tracks === undefined){
-          pagination =  null;
-        }
-        else {
-          let preBtnClass;
-          if(this.state.offset === 0){
-            preBtnClass = '';
-          }
-          else {
-            preBtnClass = "next-btn"
-          }
 
-          pagination =  <div className="pagination">
-            <button
-              className={preBtnClass}
-              onClick={()=>{ this.prevPage() }}
-                    disabled={this.state.offset === 0}>prev
-            </button>
-            <span className="page-num">page {this.state.offset/15 + 1}</span>
-            <button className="next-btn" onClick={ ()=>{ this.nextPage() }}>next</button>
-          </div>;
-        }
-
+        const OverFlowDivClass = (this.props.playerVisible) ? 'over-flow-explore-plus' : 'over-flow-explore';
 
         return (
 
           <div className="explore-container">
             <CategoryList/>
-            <div className="over-flow-explore">
+            <div className={OverFlowDivClass}>
               <div className="explore">
                 <TrackList tracks={this.state.tracks}
                            genre={this.props.match.params.genre}
                            page={this.state.page}
                            mode={this.state.mode}
-                           trackTitleSlicer = { this.props.trackTitleSlicer }
+                           trackTitleSlicer={ this.props.trackTitleSlicer }
 
                 />
-                {pagination}
+                { this.pagination() }
               </div>
             </div>
           </div>
@@ -160,3 +178,13 @@ export default class Explore extends React.Component {
     }
   }
 }
+
+
+function mapStateToProps(stateData) {
+
+  return {
+    playerVisible: stateData.playerVisible,
+  }
+}
+
+export default connect(mapStateToProps)(Explore);

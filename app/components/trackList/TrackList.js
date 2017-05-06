@@ -6,14 +6,13 @@ import {connect} from 'react-redux';
 import Track from '../track/Track'
 
 function TrackList(props) {
-//
-// console.info(this.refs);
-  let trackList;
+
   const genre = props.genre;
   const page = props.page;
-  // let onPlyList;
+  let trackList = props.tracks;
 
-  function trackCradMaker(track) {
+
+  function trackCardMaker(track,trackList) {
 
     if (props.tracks.length > 0) {
 
@@ -21,6 +20,7 @@ function TrackList(props) {
         <Track
           key={uuid()}
           track={track}
+          tracks={trackList}
           page={page}
           trackTitleSlicer={ props.trackTitleSlicer }
         />
@@ -32,55 +32,60 @@ function TrackList(props) {
     }
   }
 
-  // function gridHoldPlacer(length) {
-  //   let arr = [];
-  //   if (page === 'explore') {
-  //     if (length < 16) {
-  //       const num = 16 - length;
-  //       for (let i = 0; i < num; i++) {
-  //         arr.push(1)
-  //       }
-  //
-  //       return arr;
-  //     }
-  //   }
-  //   else {
-  //     return arr;
-  //   }
-  // }
+  function gridHoldPlacer(length) {
+
+    let arr = [];
 
 
-  trackList = props.tracks;
+      if (length % 4 === 0) {
+
+        return arr;
+      }
+
+      else {
+        const number = length % 4;
+        for (let i = 0; i < number; i++) {
+          arr.push(1);
+        }
+        return arr
+      }
+
+  }
+
+
 
   function handelPlyList() {
     if (trackList.length > 0) {
+
+
       return <ul className="track-list" key={uuid()}>
         {
-          trackList.map((track) => trackCradMaker(track))
+          trackList.map((track) => trackCardMaker(track,trackList))
         }
 
-        {/*{gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={uuid()}/>)}*/}
+        {gridHoldPlacer(trackList.length).map((num, i) => <li className="empty-track" key={uuid()}/>)}
 
       </ul>
     }
     else {
-      if(props.mode !== 'genres' && page === 'explore'){
+      if (props.mode !== 'genres' && page === 'explore') {
         return <div className='empty-search'>
+          <div className='fa fa-search'/>
           <p>No songs were found for your search</p>
         </div>
       }
       else {
         return <ul className="track-list" key={uuid()}>
           <li className="empty-playlist-container">empty!</li>
-
         </ul>
       }
 
     }
   }
 
-  let exploreSreachOrGenres = (props.mode === 'genres')?'Genre':'search';
-  let exploreListTitle = (page === 'explore') ? <h3>{exploreSreachOrGenres}:{genre}</h3> : null;
+  let exploreSearchOrGenres = (props.mode === 'genres') ? 'Genre' : 'search';
+  let exploreListTitle = (page === 'explore') ? <h3>{exploreSearchOrGenres}:{genre}</h3> : null;
+
 
   return (
     <div className="play-list-container" key={uuid()}>
@@ -99,6 +104,7 @@ function mapStateToProps(stateData) {
     currentTrack: stateData.currentTrack,
   }
 }
+
 
 export default connect(mapStateToProps)(TrackList);
 
