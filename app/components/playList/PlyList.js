@@ -2,6 +2,9 @@ import React from 'react'
 import TrackList from '../trackList/TrackList'
 import {connect} from 'react-redux';
 
+import {serverLocation} from '../../serverLocation';
+
+
 class PlyList extends React.Component {
 
   constructor(props) {
@@ -19,7 +22,6 @@ class PlyList extends React.Component {
   }
 
   componentDidUpdate() {
-    console.info('@', this.nameInput);
 
     if (this.state.inputShowing) {
       this.nameInput.focus();
@@ -59,7 +61,7 @@ class PlyList extends React.Component {
     //xhr req
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/playlist/updatetitle');
+    xhr.open('POST', `${serverLocation}/playlist/updatetitle`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify({
@@ -90,11 +92,13 @@ class PlyList extends React.Component {
 
   //remove playlist
   removePlyListHandler(plyListId) {
+    console.info('work');
+
     this.props.removePlyList(plyListId);
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/playlist/remove');
+    xhr.open('POST', `${serverLocation}/playlist/remove`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify({
@@ -161,7 +165,8 @@ for playlist duration
           {plyListTitle}
 
           <button className="delete-playlist-btn" onClick={() => {
-            this.removePlyListHandler(this.props.plyList.id)
+            console.info('delete-playlist-');
+            this.removePlyListHandler(this.props.plyList.id);
           }}>delete
           </button>
         </div>

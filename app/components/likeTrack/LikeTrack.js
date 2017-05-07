@@ -7,6 +7,8 @@ import {
 
 import {connect} from 'react-redux';
 import uuid from 'uuid';
+import {serverLocation} from '../../serverLocation';
+
 
 class LikeTrack extends React.Component {
   constructor(props) {
@@ -33,11 +35,11 @@ class LikeTrack extends React.Component {
       }
     );
   }
-
+// http://localhost:3000
   JSONUpdatePlyListsData() {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/playlist/updateplylistfromdropdown');
+    xhr.open('POST', `${serverLocation}/playlist/updateplylistfromdropdown`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify(this.state.tempPlyListsData))
@@ -136,7 +138,7 @@ class LikeTrack extends React.Component {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/playlist');
+    xhr.open('POST', `${serverLocation}/playlist`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify({

@@ -71,10 +71,3 @@ export default class Root extends React.Component {
   }
 
 }
-
-
-// const playLists = [...this.state.playLists];
-//
-// const onePlayList = playLists.find((aPlayList) => aPlayList.id===id);
-// onePlayList.title = name;
-// this.setState({playLists: playLists})

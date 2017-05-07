@@ -3,6 +3,8 @@
  */
 import { createStore, combineReducers } from 'redux';
 
+import {serverLocation} from './serverLocation';
+
 import currentTrack from './reducers/current-track';
 import playerVisible from './reducers/player-visible';
 import playListData from './reducers/plyList-data';
@@ -24,7 +26,7 @@ function GetPlayListXhr() {
 
   const xhr = new XMLHttpRequest();
 
-  xhr.open('GET', `http://localhost:3000/a-file`);
+  xhr.open('GET', `${serverLocation}/a-file`);
   xhr.addEventListener('load', () => {
 
     store.dispatch({
