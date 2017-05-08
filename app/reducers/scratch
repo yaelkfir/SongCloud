@@ -1,0 +1,6 @@
+{
+  playlists: [],
+  playerVisible: boolean,
+  currentTrack: {},
+  isPlaying: boolean
+}
