@@ -10,7 +10,7 @@ import PlyListUl from '../playList/PlyList'
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import MDSpinner from "react-md-spinner";
-
+import {serverLocation} from '../../serverLocation';
 
 
 class Playlists extends React.Component {
@@ -66,7 +66,7 @@ class Playlists extends React.Component {
 
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://localhost:3000/playlist');
+    xhr.open('POST', `${serverLocation}/playlist`);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify({

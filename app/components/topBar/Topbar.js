@@ -33,7 +33,7 @@ if(search.length>0){
 
         <NavLink to="/explore" className="logo">
           <i className="fa fa-mixcloud" aria-hidden="true"/>
-          <span>SongCloud</span>
+          <span>TuneIn</span>
         </NavLink>
 
         <nav>

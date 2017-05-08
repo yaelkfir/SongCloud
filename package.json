@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "FED Bootcamp 3nd project - React SPA",
   "scripts": {
-    "start": "webpack-dev-server --hot --progress",
+    "start": "node server/server.js",
+    "start:dev": "webpack-dev-server --hot --progress",
     "build": "NODE_ENV=production webpack -p --progress",
-    "buildwin": "set NODE_ENV=production&webpack -p --progress"
+    "buildwin": "set NODE_ENV=production&webpack -p --progress",
+    "test": "webpack-dev-server --hot --progress"
   },
   "license": "ISC",
   "dependencies": {
@@ -24,7 +26,6 @@
     "react-scroll": "1.4.8",
     "redux": "3.6.0",
     "smoothscroll-polyfill": "0.3.4",
-    "surface": "github:mildrenben/surface",
     "uuid": "3.0.1"
   },
   "devDependencies": {
@@ -48,5 +49,9 @@
     "url-loader": "0.5.8",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.2"
+  },
+
+  "now": {
+    "alias": "songcloud-yael"
   }
 }

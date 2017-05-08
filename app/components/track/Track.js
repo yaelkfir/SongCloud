@@ -10,7 +10,6 @@ class Track extends React.Component {
 
     this.state = {
       playing: null,//true,false
-      // playingMode: 'none'
     };
   }
 

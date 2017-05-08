@@ -10,14 +10,17 @@ import {
 } from 'react-router-dom';
 
 export default function CategoryList (){
-  return <ul className="category-list">
-    <li className="category-title"><span>Genres:</span></li>
-    <li className="category"><NavLink to="/explore/trance" activeClassName="selected-category">trance</NavLink></li>
-    <li className="category"><NavLink to="/explore/house" activeClassName="selected-category">house</NavLink></li>
-    <li className="category"><NavLink to="/explore/dubstep" activeClassName="selected-category">dubstep</NavLink></li>
-    <li className="category"><NavLink to="/explore/electronic" activeClassName="selected-category">electronic</NavLink></li>
-    <li className="category"><NavLink to="/explore/hip-hop" activeClassName="selected-category">hip hop</NavLink></li>
-  </ul>
+  return <div className="category-list-container">
+    <ul className="category-list">
+      <li className="category-title"><span>Genres:</span></li>
+      <li className="category"><NavLink to="/explore/trance" activeClassName="selected-category">trance</NavLink></li>
+      <li className="category"><NavLink to="/explore/house" activeClassName="selected-category">house</NavLink></li>
+      <li className="category"><NavLink to="/explore/dubstep" activeClassName="selected-category">dubstep</NavLink></li>
+      <li className="category"><NavLink to="/explore/electronic" activeClassName="selected-category">electronic</NavLink></li>
+      <li className="category"><NavLink to="/explore/hip-hop" activeClassName="selected-category">hip hop</NavLink></li>
+    </ul>
+    </div>
+
 }
 
 

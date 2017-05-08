@@ -1,20 +1,24 @@
+@import 'assets/styles/colors';
+
 header {
-  background-color: #2196F3;
+  background-color: $navGray;
   width: 100%;
   height: 64px;
   display: flex;
   flex-direction: row;
   padding: 0 10px;
+  padding-left: 0;
   margin: 0;
 }
 
 .logo {
   height: 100%;
-  width: 20%;
   align-self: flex-start;
   color: #ffffff;
   display: flex;
   align-items: center;
+  padding: 20px;
+  @include linear-gradient(to right,$gradientPurple, $gradientPink);
 }
 
 .logo span{
@@ -25,9 +29,6 @@ header {
 .logo .fa {
   font-size: 1.88rem;
   line-height: 64px;
-}
-nav {
-  width: 30%;
 }
 
 .nav-list {
@@ -57,7 +58,8 @@ nav {
 
 .search-input {
   height: 100%;
-  width: 55%;
+  width: 70%;
+  padding-left: 20%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -67,9 +69,9 @@ nav {
 .search-input form > input.search {
   height: 30px;
   width: 100%;
-  color: white;
-  background-color: #1E88E5;
-  padding-left: 28px;
+  color: $navGray;
+  background-color: $white;
+  padding-left: 30px;
   font-size: 0.9rem;
   margin: 0;
   border: 1px solid #fff9fc;
@@ -81,7 +83,7 @@ nav {
   margin: 0;
   padding: 2px;
   font-size: 0.9rem;
-  color: white;
+  color: $navGray;
   transform: none;
   text-transform: uppercase;
   font-weight: 300;
@@ -113,23 +115,23 @@ nav {
 
 .nav-list .nav-selected {
   font-weight: 600;
-  background-color: #1E88E5;
+  background-color: $navDarkGray;
   color: white;
 }
 
 .right-side-header{
-  width: 50%;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .search-input span{
   position: absolute;
-  left: 10px;
+  left: calc(29% + 9px);
   top: 25px;
   z-index: 1;
-  color: white;
+  color: $gradientPink;
   font-size: 0.9rem;
   cursor: pointer;
 }
