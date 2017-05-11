@@ -28,10 +28,10 @@ export default function playListDataReducer(playListData = [], action) {
 
     const playLists = [...playListData];
     let plyListTem = playLists.find((plyList) =>`${plyList.id}` === action.plyListId);
+
     let tempTrack = plyListTem.tracks.find((temTrack) => temTrack.id === action.track.id);
     const index = plyListTem.tracks.indexOf(tempTrack);
     plyListTem.tracks.splice(index, 1);
-
 
     return playLists;
   }

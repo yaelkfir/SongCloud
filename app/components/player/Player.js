@@ -35,7 +35,6 @@ class Player extends React.Component {
       controls="controls"
       src={ track }
       onPlay={(e) => {this.props.setAudioMode('play');}}
-
       onPause={(e) => this.props.setAudioMode('pause')}
       onEnded={(e)=> {
 
@@ -49,10 +48,7 @@ class Player extends React.Component {
       autoPlay
     />
   }
-/*
- document.getElementById('audio').addEventListener("ended",function() {
 
- */
   render() {
     let trackImg = this.props.currentTrack.artwork_url ? this.props.currentTrack.artwork_url.replace('large', 't300x300') : '';
     const trackUrl = `${this.props.currentTrack.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;

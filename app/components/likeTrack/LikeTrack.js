@@ -16,7 +16,6 @@ class LikeTrack extends React.Component {
 
     this.state = {
       openedDropDown: false,
-      inPlyList: false,
       currentPage: '',
       onPlyList: null,
       tempPlyListsData: null
