@@ -16,7 +16,6 @@ class LikeTrack extends React.Component {
 
     this.state = {
       openedDropDown: false,
-      inPlyList: false,
       currentPage: '',
       onPlyList: null,
       tempPlyListsData: null
@@ -35,6 +34,7 @@ class LikeTrack extends React.Component {
       }
     );
   }
+
 // http://localhost:3000
   JSONUpdatePlyListsData() {
     const xhr = new XMLHttpRequest();

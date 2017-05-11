@@ -120,17 +120,6 @@ class PlyList extends React.Component {
   //render
   render() {
 
-/*
-
-for playlist duration
- let plyListDuration = 0;
-
- this.props.plyList.tracks.forEach((track)=>{ console.info(this.msToTime(track.duration));
- plyListDuration = track.duration + plyListDuration;
- });
-
- console.info('plyListDuration',this.msToTime(plyListDuration));
-*/
 
     const plyListInput = (this.state.inputShowing)
       ? <input type="text" value={this.state.inputValue} placeholder="untitled"

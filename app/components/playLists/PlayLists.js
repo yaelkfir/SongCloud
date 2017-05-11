@@ -23,7 +23,7 @@ class Playlists extends React.Component {
 
   }
 
-  createPlyListsUls(plyList,i) {
+  createPlyListsUls(plyList) {
 
     let isPlyListNew = plyList.newPlyList? true: false;
     let isInputVisible = plyList.newPlyList? true: false;
