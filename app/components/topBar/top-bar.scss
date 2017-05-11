@@ -1,7 +1,7 @@
 @import 'assets/styles/colors';
 
 header {
-  background-color: $navGray;
+  background-color: $mainBlue;
   width: 100%;
   height: 64px;
   display: flex;
@@ -18,7 +18,7 @@ header {
   display: flex;
   align-items: center;
   padding: 20px;
-  @include linear-gradient(to right,$gradientPurple, $gradientPink);
+  @include linear-gradient(to right, $mainBlue);
 }
 
 .logo span{
@@ -115,7 +115,7 @@ header {
 
 .nav-list .nav-selected {
   font-weight: 600;
-  background-color: $navDarkGray;
+  background-color: $darkenBlue;
   color: white;
 }
 
@@ -131,7 +131,7 @@ header {
   left: calc(29% + 9px);
   top: 25px;
   z-index: 1;
-  color: $gradientPink;
+  color: $navGray;
   font-size: 0.9rem;
   cursor: pointer;
 }

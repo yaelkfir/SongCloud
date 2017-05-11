@@ -1,15 +1,16 @@
 @import 'assets/styles/colors';
 .category-list-container{
-  height: 50px;
+  height: 40px;
   width: 100%;
   position: absolute;
-  padding: 0 40px;
+
   top: 0;
   z-index: 10;
 }
 .category-list {
+  padding: 0 40px;
   width: 100%;
-  height: 50px;
+  height: 40px;
   background-color: $mainGray ;
   display: flex;
   line-height: 40px;
