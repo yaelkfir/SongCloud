@@ -67,8 +67,9 @@ class Explore extends React.Component {
     }
 
     const xhr = new XMLHttpRequest();
-
-    xhr.open('GET', `https://api.soundcloud.com/tracks?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z&app&limit=${limit}&offset=${offset}&${searchTarget}=${genre}`);
+// R05HJlT1Pq49aYbJl7VfKJ587r2blpL1 
+    // old 2t9loNQH90kzJcsFCODdigxfp325aq4z
+    xhr.open('GET', `https://api.soundcloud.com/tracks?client_id=R05HJlT1Pq49aYbJl7VfKJ587r2blpL1&app&limit=${limit}&offset=${offset}&${searchTarget}=${genre}`);
     xhr.addEventListener('load', () => {
 
       this.setState({tracks: JSON.parse(xhr.responseText), trackLoading: 'loaded'});
