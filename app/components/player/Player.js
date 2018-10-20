@@ -51,7 +51,7 @@ class Player extends React.Component {
 
   render() {
     let trackImg = this.props.currentTrack.artwork_url ? this.props.currentTrack.artwork_url.replace('large', 't300x300') : '';
-    const trackUrl = `${this.props.currentTrack.stream_url}?client_id=2t9loNQH90kzJcsFCODdigxfp325aq4z`;
+    const trackUrl = `${this.props.currentTrack.stream_url}?client_id=R05HJlT1Pq49aYbJl7VfKJ587r2blpL1`;
     const trackTitel = this.props.currentTrack.title ? this.trackTitleSlicer(this.props.currentTrack.title, 50) : 'song';
 
     if (this.props.playerVisible) {
