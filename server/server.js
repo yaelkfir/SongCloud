@@ -25,7 +25,7 @@ const path = require('path');
 // ROUTES
 // ==============================================
 //2 + 3
-fs.writeFileSync(os.tmpdir() + '/playlist.json', fs.readFileSync(__dirname + '/playList.json'));
+fs.writeFileSync(os.tmpdir() + '/playlist.json', fs.readFileSync(__dirname + '/playlist.json'));
 
 //1
 
@@ -43,6 +43,13 @@ app.use(bodyParser.json());
 //get the json
 
 app.get('/a-file', function (req, res) {
+  const data = fs.readFileSync(os.tmpdir() + '/playlist.json');
+  res.send(data);
+
+});
+
+//new
+app.get('playlists', function (req, res) {
   const data = fs.readFileSync(os.tmpdir() + '/playlist.json');
   res.send(data);
 
@@ -68,6 +75,19 @@ app.post('/playlist/updatetitle', (req, res) => {
 
   let plyListTem = playlists.find((playlist) => playlist.id === req.body.plyListId);
   plyListTem.title = req.body.title;
+
+  fs.writeFileSync(os.tmpdir() + '/playlist.json', JSON.stringify(playlists));
+  res.send('OK')
+
+});
+
+// new
+app.put('/playlist', (req, res) => {
+  const data = fs.readFileSync(os.tmpdir() + '/playlist.json');
+  const playlists = JSON.parse(data);
+
+  let playList = playlists.find((playlist) => playlist.id === req.body.plyListId);
+  playList.title = req.body.title;
 
   fs.writeFileSync(os.tmpdir() + '/playlist.json', JSON.stringify(playlists));
   res.send('OK')

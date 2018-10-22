@@ -47,7 +47,7 @@ class PlyList extends React.Component {
   }
 
   //playlist title & input
-  handelTitleChange(event) {
+  editTitle(event) {
 
     let newTitle = event.target.value !== '' ? event.target.value : 'untitled';
 
@@ -77,7 +77,7 @@ class PlyList extends React.Component {
     if (event.keyCode === 13) {
       this.props.setOldPlayList(this.props.plyList.id);
       this.toggleInputState();
-      this.handelTitleChange(event)
+      this.editTitle(event)
     }
   }
 
@@ -127,7 +127,7 @@ class PlyList extends React.Component {
                onBlur={ (event) => {
                  this.props.setOldPlayList(this.props.plyList.id);
                  this.toggleInputState();
-                 this.handelTitleChange(event)
+                 this.editTitle(event)
                } }
                onKeyDown={(event) => this.inputKeyDown(event)}
                onChange={(event) => this.setState({inputValue: event.target.value})}/>

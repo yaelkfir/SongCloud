@@ -14,6 +14,14 @@ class Explore extends React.Component {
     this.state = {
       tracks: [],
       trackLoading: 'loading',
+      params: {
+        client_id: 'R05HJlT1Pq49aYbJl7VfKJ587r2blpL1',
+        limit: 25,
+        offset: 0,
+        linked_partitioning: 1,
+        app_version: 1539875955,
+        app_locale: 'en'
+      },
       offset: 0,
       limit: 30,
       page: 'explore',
@@ -21,6 +29,15 @@ class Explore extends React.Component {
     };
 
   }
+
+  /*
+  client_id: 'R05HJlT1Pq49aYbJl7VfKJ587r2blpL1',
+limit: 25,
+offset: 0,
+linked_partitioning: 1,
+app_version: 1539875955,
+app_locale: en
+   */
 
   componentDidMount() {
     this.GetXhr();
@@ -65,11 +82,30 @@ class Explore extends React.Component {
     if (searchTarget === 'tags') {
       this.setState({mode: 'genres'});
     }
+    /*
+    var url = new URL("https://geo.example.org/api"),
+    params = {lat:35.696233, long:139.570431}
+Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+fetch(url).then(...)
+     */
+    console.log('state', this.state.params);
+    console.log('props', this.props);
+
+    const url = new URL('https://api.soundcloud.com/tracks');
+    Object.keys(this.state.params).forEach(key => url.searchParams.append(key, this.state.params[key]));
+
+    fetch(url, {
+        method: 'Get', // or 'PUT'
+      }).then((res)=>{
+      console.log('fetch :)',  res.json().then((body)=>{
+        console.log(body);
+        this.setState({tracks: body, trackLoading: 'loaded'});
+      }));
+    });
 
     const xhr = new XMLHttpRequest();
-// R05HJlT1Pq49aYbJl7VfKJ587r2blpL1 
-    // old 2t9loNQH90kzJcsFCODdigxfp325aq4z
-    xhr.open('GET', `https://api.soundcloud.com/tracks?client_id=R05HJlT1Pq49aYbJl7VfKJ587r2blpL1&app&limit=${limit}&offset=${offset}&${searchTarget}=${genre}`);
+
+    xhr.open('GET', `https://api.soundcloud.com/tracks?client_id=R05HJlT1Pq49aYbJl7VfKJ587r2blpL1&app&limit=${limit}&offset=${offset}&app_locale=en&linked_partitioning=1`);
     xhr.addEventListener('load', () => {
 
       this.setState({tracks: JSON.parse(xhr.responseText), trackLoading: 'loaded'});
@@ -81,6 +117,8 @@ class Explore extends React.Component {
     xhr.send();
 
   }
+
+
 
 
   //pagination
