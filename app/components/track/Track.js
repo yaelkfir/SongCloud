@@ -9,7 +9,7 @@ class Track extends React.Component {
     super(props);
 
     this.state = {
-      playing: null,//true,false
+      playing: null,//true,falsegi
     };
   }
 
